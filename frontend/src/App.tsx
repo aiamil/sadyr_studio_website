@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import './App.css'
 import '@my-app/ui-library/style.css'
 import { Button, Photo } from '@my-app/ui-library' // Импортируем Photo из ui-library

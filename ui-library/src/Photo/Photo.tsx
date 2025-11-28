@@ -1,5 +1,5 @@
-// Импорт React и CSS модулей
 import React from 'react'
+
 import styles from './Photo.module.css'
 
 // Интерфейс для пропсов компонента Photo

@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+
 import { Photo, PhotoProps } from './Photo'
 
 describe('Photo', () => {
@@ -29,6 +30,7 @@ describe('Photo', () => {
     render(<Photo {...mockPhoto} />)
 
     const image = screen.getByAltText('Test Photo Title') as HTMLImageElement
+    
     expect(image.src).toBe('https://example.com/photo.jpg')
   })
 
