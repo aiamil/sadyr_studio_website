@@ -1,4 +1,3 @@
-// Button.tsx
 // Импортируем React - обязательная библиотека для создания компонентов
 import React from 'react'
 
