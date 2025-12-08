@@ -1,0 +1,61 @@
+/* Button.module.css */
+
+/* Базовые стили для ВСЕХ кнопок */
+.btn {
+  /* Убираем стандартную рамку браузера */
+  border: none;
+  /* Скругляем углы на 40px */
+  border-radius: 40px;
+  /* Курсор указатель */
+  cursor: pointer;
+  /* Наследуем шрифт */
+  font-family: inherit;
+  /* Плавные анимации */
+  transition: all 0.3s ease;
+  /* Выравнивание текста */
+  text-align: center;
+  /* Убираем подчеркивание */
+  text-decoration: none;
+  /* Запрещаем выделение текста */
+  user-select: none;
+  /* Белый фон */
+  background-color: white;
+  /* Черный текст */
+  color: black;
+  /* Темная рамка */
+  border: 2px solid black;
+}
+
+/* Стили для ОТКЛЮЧЕННОЙ кнопки */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Эффект при наведении на кнопку */
+.btn:hover:not(:disabled) {
+  /* Темный фон при наведении */
+  background-color: black;
+  /* Белый текст при наведении */
+  color: white;
+}
+
+/* Стили для ДЛИННОЙ кнопки - "обсудить проект" */
+.btn--large {
+  /* Большие внутренние отступы */
+  padding: 10px 35px;
+  /* Большой размер шрифта */
+  font-size: 16px;
+  /* Автоматическая ширина по содержимому */
+  width: auto;
+}
+
+/* ⚫ Стили для МАЛЕНЬКОЙ кнопки - "МЕНЮ" */
+.btn--small {
+  /* Маленькие внутренние отступы */
+  padding: 10px 35px;
+  /* Средний размер шрифта */
+  font-size: 16px;
+  /* Автоматическая ширина по содержимому */
+  width: auto;
+}
