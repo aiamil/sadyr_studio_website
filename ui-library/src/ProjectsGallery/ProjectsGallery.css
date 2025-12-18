@@ -1,0 +1,293 @@
+/* Основной контейнер галереи — весь блок с двумя колонками проектов */
+.projects-gallery {
+  display: flex;                    /* Делаем горизонтальное расположение колонок (слева и справа) */
+  gap: 60px;                        /* Большой отступ между левой и правой колонкой для "воздуха" и красоты */
+  max-width: 1600px;                /* Максимальная ширина галереи — не растягивается на сверхшироких экранах */
+  margin: 0 auto;                   /* Центрируем галерею по горизонтали */
+  padding: 0 20px;                  /* Боковые отступы, чтобы контент не прилипал к краям экрана */
+  width: 100%;                      /* Занимаем всю доступную ширину родителя */
+  box-sizing: border-box;           /* Padding не добавляется к ширине — всё остаётся внутри max-width */
+  align-items: start;               /* САМОЕ ВАЖНОЕ: колонки НЕ растягиваются по высоте. Левая будет выше правой за счёт большой карточки */
+}
+
+/* Общие стили для обеих колонок (левой и правой) */
+.projects-gallery__column {
+  display: flex;                    /* Внутри колонки — вертикальное расположение карточек */
+  flex-direction: column;           /* Карточки одна под другой */
+  gap: 60px;                        /* Отступ между карточками внутри одной колонки */
+  flex: 1;                          /* По умолчанию колонка занимает доступное пространство (переопределяется ниже) */
+  width: 100%;                      /* На случай, если колонка станет единственной (на мобильных) */
+}
+
+/* Левая колонка — шире и с акцентом на большую карточку */
+.projects-gallery__column--left {
+  flex: 0.65;                       /* Занимает 65% ширины галереи — чуть шире правой для баланса */
+}
+
+/* Правая колонка — уже, чтобы левая доминировала */
+.projects-gallery__column--right {
+  flex: 0.35;                       /* Занимает 35% ширины — уже, чем левая */
+}
+
+/* Одна карточка проекта (изображение + текст + кнопка) */
+.project-item {
+  display: flex;                    /* Вертикальное расположение элементов внутри карточки */
+  flex-direction: column;           /* Изображение сверху, текст снизу */
+  gap: 24px;                        /* Отступ между изображением и информацией (текст + кнопка) */
+  background: transparent;          /* Прозрачный фон */
+  border: none;                     /* Без границы */
+  box-shadow: none;                 /* Без тени (тень только на контейнере изображения) */
+  padding: 0;                       /* Без внутренних отступов */
+  margin: 0;                        /* Без внешних отступов */
+}
+
+/* Контейнер вокруг изображения — нужен для оверлея, тени и ховера */
+.project-image-container {
+  position: relative;               /* Для абсолютного позиционирования оверлея */
+  width: 100%;                      /* Полная ширина карточки */
+  overflow: hidden;                 /* Обрезаем всё, что выходит за границы при scale */
+  border-radius: 12px;              /* Скруглённые углы для современного вида */
+  cursor: pointer;                  /* Курсор "рука" — подсказка, что можно кликнуть */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Лёгкая тень для ощущения глубины */
+  transition: box-shadow 0.4s ease; /* Плавное усиление тени при ховере */
+}
+
+/* Усиливаем тень при наведении на контейнер изображения */
+.project-image-container:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Более сильная и размытая тень */
+}
+
+/* Само изображение проекта */
+.project-image {
+  width: 100%;                      /* Растягиваем по ширине контейнера */
+  height: auto;                     /* Высота будет переопределена ниже для каждого размера */
+  display: block;                   /* Убираем лишний отступ снизу у inline-изображений */
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Очень плавная анимация трансформации и фильтров */
+  will-change: transform;           /* Подсказка браузеру оптимизировать анимацию */
+}
+
+/* Маленькие карточки — компактные */
+.project-item--small .project-image {
+  height: 500px;                    /* Фиксированная высота для small */
+  object-fit: cover;                /* Обрезаем изображение, чтобы заполнить блок без искажений */
+}
+
+/* Средние карточки — заметно выше маленьких */
+.project-item--medium .project-image {
+  height: 600px;                    /* Высота для medium — хорошая середина */
+  object-fit: cover;                /* То же обрезание */
+}
+
+/* Большая карточка — главная звезда галереи */
+.project-item--large .project-image {
+  height: 900px;                    /* Очень высокая — делает левую колонку доминирующей */
+  object-fit: cover;                /* Обрезаем, сохраняя пропорции */
+}
+
+/* Эффект при наведении на изображение */
+.project-image-container:hover .project-image {
+  transform: scale(1.06) translateY(-6px); /* Увеличиваем на 6% и поднимаем вверх */
+  filter: brightness(1.08);         /* Делаем чуть ярче */
+}
+
+/* Полупрозрачный оверлей для лёгкого затемнения при ховере */
+.project-image-overlay {
+  position: absolute;               /* Поверх изображения */
+  inset: 0;                         /* Занимает всю площадь контейнера (top, left, right, bottom = 0) */
+  background: rgba(0, 0, 0, 0);      /* Изначально полностью прозрачный */
+  transition: background 0.4s ease; /* Плавное затемнение */
+  pointer-events: none;             /* Не мешает кликам по изображению */
+}
+
+/* Затемнение оверлея при наведении */
+.project-image-container:hover .project-image-overlay {
+  background: rgba(0, 0, 0, 0.05);   /* Лёгкое затемнение (5%) */
+}
+
+/* Блок с текстом и кнопкой под изображением */
+.project-info {
+  display: flex;                    /* Горизонтально: текст слева, кнопка справа */
+  justify-content: space-between;   /* Максимальное расстояние между элементами */
+  align-items: center;              /* Вертикальное центрирование */
+  padding: 0 12px;                  /* Небольшие боковые отступы */
+  transition: transform 0.4s ease;  /* Плавный подъём при ховере на карточку */
+}
+
+/* Подъём текста при наведении на всю карточку */
+.project-item:hover .project-info {
+  transform: translateY(-6px);      /* Текст "всплывает" вверх */
+}
+
+/* Контейнер с описанием и заголовком */
+.project-text {
+  flex: 1;                          /* Занимает всё место слева от кнопки */
+}
+
+/* Краткое описание проекта */
+.project-description {
+  font-size: 15px;                  /* Размер шрифта */
+  color: #555;                      /* Серый цвет */
+  margin-bottom: 6px;               /* Отступ до заголовка */
+  transition: all 0.3s ease;        /* Плавные эффекты при ховере */
+  cursor: pointer;                  /* Можно кликнуть */
+}
+
+/* Эффект при наведении на описание */
+.project-description:hover {
+  transform: scale(1.03);           /* Лёгкое увеличение */
+  color: #222;                      /* Темнее */
+}
+
+/* Заголовок проекта */
+.project-title {
+  font-size: 24px;                  /* Крупный заголовок */
+  font-weight: 600;                 /* Полужирный */
+  color: #222;                      /* Тёмный цвет */
+}
+
+/* Кнопка "Посмотреть проект" */
+.project-link {
+  display: flex;                    /* Текст и стрелка горизонтально */
+  align-items: center;              /* По центру по вертикали */
+  gap: 10px;                        /* Отступ между текстом и стрелкой */
+  background: transparent;          /* Прозрачный фон */
+  border: none;                     /* Без границы */
+  padding: 14px 20px;               /* Внутренние отступы */
+  border-radius: 30px;              /* Сильно скруглённые углы — "пилюля" */
+  cursor: pointer;                  /* Курсор "рука" */
+  font-size: 15px;                  /* Размер текста */
+  color: #222;                      /* Цвет текста */
+  font-weight: 500;                 /* Средняя жирность */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Плавная анимация всего */
+}
+
+/* Эффекты при наведении на кнопку */
+.project-link:hover {
+  transform: translateY(-4px);      /* Поднимается вверх */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Тень для объёма */
+  background: rgba(0, 0, 0, 0.04);   /* Лёгкий серый фон */
+}
+
+/* Эффект при нажатии */
+.project-link:active .project-link-text {
+  transform: scale(1.05);           /* Текст увеличивается */
+}
+
+.project-link-text {
+  transition: transform 0.2s ease;  /* Плавное масштабирование */
+}
+
+/* Контейнер для CSS-стрелки */
+.project-arrow {
+  display: block;                   /* Блочный элемент */
+  width: 22px;                      /* Размер стрелки */
+  height: 22px;
+  position: relative;               /* Для позиционирования псевдоэлемента */
+  flex-shrink: 0;                   /* Не сжимается в flex */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Анимация движения */
+}
+
+/* Рисуем стрелку с помощью псевдоэлемента */
+.project-arrow::after {
+  content: '';                      /* Пустой контент */
+  position: absolute;
+  top: 50%;                         /* По центру по вертикали */
+  left: 50%;                        /* По центру по горизонтали */
+  width: 11px;                      /* Размер "ножки" стрелки */
+  height: 11px;
+  border-top: 2px solid currentColor;   /* Верхняя граница */
+  border-right: 2px solid currentColor; /* Правая граница */
+  transform: translate(-50%, -50%) rotate(45deg); /* Центрируем и поворачиваем → стрелка вправо */
+}
+
+/* Движение стрелки при наведении на кнопку */
+.project-link:hover .project-arrow {
+  transform: translateX(8px) translateY(-2px); /* Вперёд и чуть вверх */
+}
+
+/* ==================== АДАПТИВНОСТЬ ==================== */
+
+/* Планшеты 1025–1200px — уменьшаем размеры и отступы */
+@media (max-width: 1200px) {
+  .projects-gallery {
+    gap: 40px;                      /* Меньше отступ между колонками */
+    max-width: 1400px;              /* Чуть уже контейнер */
+  }
+
+  .project-item--small .project-image { height: 340px; }
+  .project-item--medium .project-image { height: 500px; }
+  .project-item--large .project-image { height: 720px; }
+
+  .projects-gallery__column {
+    gap: 50px;                      /* Меньше отступ внутри колонок */
+  }
+}
+
+/* ≤1024px — переходим в одну колонку (сначала левая целиком, потом правая) */
+@media (max-width: 1024px) {
+  .projects-gallery {
+    flex-direction: column;         /* Колонки одна под другой */
+    gap: 80px;                      /* Большой отступ между бывшими колонками */
+    align-items: stretch;           /* Растягиваем по ширине */
+  }
+
+  .projects-gallery__column--left,
+  .projects-gallery__column--right {
+    flex: 1;                        /* Полная ширина */
+    width: 100%;
+  }
+
+  .project-item--small .project-image { height: 420px; }
+  .project-item--medium .project-image { height: 580px; }
+  .project-item--large .project-image { height: 780px; }
+
+  .projects-gallery__column {
+    gap: 60px;
+  }
+}
+
+/* Мобильные ≤768px */
+@media (max-width: 768px) {
+  .projects-gallery {
+    gap: 60px;
+    padding: 0 15px;                /* Меньше боковые отступы */
+  }
+
+  .project-info {
+    flex-direction: column;         /* Текст и кнопка одна под другой */
+    align-items: flex-start;        /* По левому краю */
+    gap: 16px;
+    padding: 0;
+  }
+
+  .project-link {
+    align-self: flex-start;         /* Кнопка прижата к левому краю */
+  }
+
+  .project-title {
+    font-size: 22px;                /* Заголовок чуть меньше */
+  }
+
+  .project-description {
+    font-size: 14px;                /* Описание меньше */
+  }
+
+  .project-item--small .project-image { height: 320px; }
+  .project-item--medium .project-image { height: 420px; }
+  .project-item--large .project-image { height: 560px; }
+
+  .projects-gallery__column {
+    gap: 50px;
+  }
+
+  .project-item {
+    gap: 20px;                      /* Меньше отступ между фото и текстом */
+  }
+}
+
+/* Очень маленькие экраны ≤480px */
+@media (max-width: 480px) {
+  .project-item--small .project-image { height: 280px; }
+  .project-item--medium .project-image { height: 360px; }
+  .project-item--large .project-image { height: 480px; }
+}

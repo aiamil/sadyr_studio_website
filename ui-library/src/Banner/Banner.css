@@ -1,0 +1,183 @@
+/* ===== BANNER COMPONENT — ИСПРАВЛЕННАЯ ВЕРСИЯ С РАВНОМЕРНЫМ ЗАТЕМНЕНИЕМ ПО КРАЯМ ===== */
+
+/* Основной контейнер баннера */
+.ui-banner {
+  position: relative;                  /* Делает элемент родителем для абсолютных элементов (оверлей и тексты) */
+  width: 100vw;                        /* Полная ширина окна просмотра */
+  height: 100vh;                       /* Высота на весь экран на десктопе */
+  min-height: 600px;                   /* Минимальная высота, чтобы баннер не сжимался на маленьких экранах */
+  background-size: cover;              /* Фоновое изображение полностью покрывает блок */
+  background-position: center;         /* Центрирует фоновое изображение */
+  background-repeat: no-repeat;        /* Запрещает повторение изображения */
+  overflow: hidden;                    /* Обрезает всё, что выходит за границы */
+  margin: 0;                           /* Убирает внешние отступы сверху и снизу */
+  box-sizing: border-box;              /* Padding и border включаются в общую ширину/высоту */
+}
+
+/* Единый оверлей с равномерным затемнением ТОЛЬКО по левому и правому краям */
+.ui-banner::before {
+  content: '';                         /* Обязательно для создания псевдоэлемента */
+  position: absolute;                  /* Абсолютное позиционирование поверх фона */
+  top: 0;                              /* От верхнего края баннера */
+  left: 0;                             /* От левого края */
+  right: 0;                            /* До правого края */
+  bottom: 0;                           /* До нижнего края — на всю высоту */
+  background: linear-gradient(         /* Горизонтальный градиент для затемнения по краям */
+    to right,                          /* Направление — слева направо */
+    rgba(0, 0, 0, 0.65) 0%,           /* Левая сторона: сильное затемнение */
+    rgba(0, 0, 0, 0.35) 12%,          /* Плавный переход внутрь */
+    rgba(0, 0, 0, 0.05) 25%,          /* Почти прозрачно ближе к центру */
+    transparent 35%,                  /* Полностью прозрачный центр (от 35% до 65%) */
+    transparent 65%,                  /* Продолжение прозрачного центра */
+    rgba(0, 0, 0, 0.05) 75%,          /* Переход к правому краю */
+    rgba(0, 0, 0, 0.35) 88%,           /* Плавный переход наружу */
+    rgba(0, 0, 0, 0.65) 100%          /* Правая сторона: сильное затемнение */
+  );
+  pointer-events: none;                /* Оверлей не мешает кликам и взаимодействию */
+  z-index: 1;                          /* Над фоном, но под текстами */
+}
+
+/* Контейнер для трёх текстов внизу баннера */
+.ui-banner-bottom-texts {
+  position: absolute;                  /* Позиционирование поверх изображения и оверлея */
+  left: 0;                             /* От левого края */
+  right: 0;                            /* До правого края */
+  bottom: 60px;                        /* Отступ от нижнего края (чтобы текст не прилипал) */
+  display: flex;                       /* Горизонтальное расположение элементов */
+  justify-content: space-between;      /* Равномерно распределяет: слева — центр — справа */
+  align-items: flex-end;               /* Все тексты прижаты к одной нижней линии */
+  padding: 0 70px;                     /* Боковые отступы (больше, чтобы текст попадал в затемнённые зоны) */
+  z-index: 2;                          /* Поверх оверлея */
+  pointer-events: none;                /* Контейнер не мешает кликам по умолчанию */
+}
+
+/* Общие стили для всех трёх текстов */
+.ui-banner-bottom-text {
+  font-family: Cruinn;     
+  color: #ffffff;                      /* Белый цвет текста для максимального контраста */
+  line-height: 1.4;                    /* Межстрочный интервал для лучшей читаемости */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); /* Сильная тень — текст читаем даже на светлых участках */
+  pointer-events: auto;                /* Разрешает выделение и копирование текста */
+  max-width: 420px;                    /* Ограничивает ширину, чтобы текст не растягивался слишком сильно */
+}
+
+/* Левый текст — самый крупный и важный */
+.ui-banner-bottom-text--left {
+  text-align: left;                    /* Выравнивание по левому краю */
+  font-size: 2.4rem;                   /* Очень крупный размер */
+  font-weight: 850;                    /* Почти максимальная жирность */
+  letter-spacing: 0.8px;               /* Расставляем буквы для акцента */
+  transform: translateY(-70px);        /* Поднимаем левый текст вверх (визуальный "подъём") */
+}
+
+/* Центральный текст — средний по важности */
+.ui-banner-bottom-text--center {
+  text-align: center;                  /* Выравнивание по центру */
+  font-size: 1.3rem;                   /* Средний размер шрифта */
+  font-weight: 500;                    /* Средняя жирность */
+  opacity: 0.98;                       /* Почти непрозрачный, но чуть мягче */
+}
+
+/* Правый текст — дополнительный, самый мелкий */
+.ui-banner-bottom-text--right {
+  text-align: right;                   /* Выравнивание по правому краю */
+  font-size: 1.1rem;                   /* Мелкий размер */
+  font-weight: 400;                    /* Обычная толщина */
+  opacity: 0.95;                       /* Лёгкая прозрачность */
+  transform: translateY(-70px);        /* Поднимаем правый текст вверх (симметрично левому) */
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+
+/* Большие планшеты и ноутбуки (до 1200px) */
+@media (max-width: 1200px) {
+  .ui-banner-bottom-texts {
+    padding: 0 50px;                   /* Уменьшаем боковые отступы */
+    bottom: 50px;                      /* Чуть ближе к низу */
+  }
+
+  .ui-banner-bottom-text--left { font-size: 2.0rem; }
+  .ui-banner-bottom-text--center { font-size: 1.2rem; }
+  .ui-banner-bottom-text--right { font-size: 1.0rem; }
+}
+
+/* Средние планшеты (до 992px) */
+@media (max-width: 992px) {
+  .ui-banner {
+    height: 90vh;                      /* Уменьшаем высоту баннера */
+    min-height: 550px;
+  }
+
+  .ui-banner-bottom-texts {
+    padding: 0 40px;
+    bottom: 45px;
+  }
+
+  .ui-banner-bottom-text--left { font-size: 1.8rem; }
+  .ui-banner-bottom-text--center { font-size: 1.1rem; }
+  .ui-banner-bottom-text--right { font-size: 0.95rem; }
+}
+
+/* Мобильные устройства — вертикальная ориентация (до 768px) */
+@media (max-width: 768px) {
+  .ui-banner {
+    height: 80vh;                      /* Ещё меньше высота */
+    min-height: 500px;
+  }
+
+  .ui-banner-bottom-texts {
+    flex-direction: column;            /* Тексты друг под другом */
+    align-items: center;               /* По горизонтали — по центру */
+    justify-content: flex-end;         /* Прижаты к нижнему краю */
+    gap: 36px;                         /* Большой промежуток между текстами */
+    padding: 0 30px;
+    bottom: 50px;
+  }
+
+  .ui-banner-bottom-text {
+    max-width: 90%;
+    text-align: center;                /* Все тексты по центру */
+    font-size: 1.4rem;                 /* Унифицированный крупный размер для читаемости */
+    font-weight: 700;                  /* Жирный шрифт */
+    opacity: 1;                        /* Полная непрозрачность */
+    transform: translateY(0);          /* Убираем подъём — все ровно */
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9); /* Усиливаем тень на мобильных */
+  }
+
+  .ui-banner-bottom-text--left,
+  .ui-banner-bottom-text--center,
+  .ui-banner-bottom-text--right {
+    text-align: center;
+  }
+}
+
+/* Маленькие телефоны (до 480px) */
+@media (max-width: 480px) {
+  .ui-banner {
+    height: 70vh;
+    min-height: 450px;
+  }
+
+  .ui-banner-bottom-texts {
+    gap: 30px;
+    padding: 0 20px;
+    bottom: 40px;
+  }
+
+  .ui-banner-bottom-text {
+    font-size: 1.3rem;
+  }
+}
+
+/* Альбомная ориентация на телефонах (горизонтальный режим) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .ui-banner-bottom-texts {
+    bottom: 30px;
+    gap: 24px;
+    padding: 0 40px;
+  }
+
+  .ui-banner-bottom-text {
+    font-size: 1.2rem;
+  }
+}

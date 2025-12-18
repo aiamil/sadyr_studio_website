@@ -1,0 +1,223 @@
+/* ===== ACCORDION COMPONENT ===== */
+/* Основная секция аккордеона */
+.accordion-section {
+  position: relative;                  /* Делает секцию позиционированным родителем для псевдоэлемента ::before  */
+  padding: 130px 25px;                 /* Большие вертикальные отступы (130px сверху и снизу) и горизонтальные (25px) */
+  background-color: #0a0a0a;           /* Очень тёмный фон всей секции */
+  color: #fff;                         /* Белый цвет текста по умолчанию для всей секции */
+}
+
+/* Декоративная горизонтальная линия сверху секции */
+.accordion-section::before {
+  content: '';                         /* Обязательно для создания псевдоэлемента */
+  position: absolute;                  /* Абсолютное позиционирование относительно .accordion-section */
+  top: 0;                              /* Прикреплена к верхнему краю секции */
+  left: 50%;                           /* Центрирована по горизонтали */
+  transform: translateX(-50%);         /* Точное центрирование */
+  width: 100px;                        /* Длина линии */
+  height: 2px;                         /* Толщина линии */
+  background: #444;                    /* Серый цвет линии */
+}
+
+/* Центрированный контейнер с ограниченной шириной */
+.accordion-container {
+  max-width: 800px;                    /* Максимальная ширина контента (чтобы на больших экранах не растягивался) */
+  margin: 0 auto;                      /* Центрирование по горизонтали */
+}
+
+/* Большой заголовок секции (например, "Остались вопросы?") */
+.accordion-title {
+  font-family: Cruinn, sans-serif;     /* Основной шрифт Cruinn с запасным sans-serif */
+  font-size: 48px;                     /* Очень крупный шрифт */
+  font-weight: 700;                    /* Почти максимальная жирность */
+  text-align: center;                  /* По центру */
+  text-transform: uppercase;           /* Все буквы заглавные */
+  letter-spacing: -1px;                /* Лёгкое сжатие букв для современного вида */
+  margin: 0 0 60px;                    /* Отступ только снизу (60px до аккордеона) */
+  color: #fff;                         /* Белый цвет */
+}
+
+/* Контейнер со всеми элементами аккордеона */
+.accordion {
+  display: flex;                       /* Включаем flexbox */
+  flex-direction: column;              /* Элементы располагаются вертикально */
+  gap: 16px;                           /* Расстояние между элементами аккордеона */
+}
+
+/* Общий стиль одного элемента аккордеона (закрытого) */
+.accordion-item {
+  font-family: Cruinn, sans-serif;     /* Основной шрифт Cruinn для всего элемента */
+  background: #1f1f1f;                 /* Чуть светлее тёмно-серый фон */
+  border: 1px solid #333;              /* Тонкая тёмная рамка */
+  border-radius: 40px;                 /* Более округлые края */
+  overflow: hidden;                    /* Обрезает контент, выходящий за границы (важно для анимации раскрытия) */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Плавная анимация всех изменений */
+}
+
+/* Стиль открытого элемента */
+.accordion-item--open {
+  background: #282828;                 /* Чуть светлее фон при открытии */
+  border-color: #444;                  /* Рамка становится светлее */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Добавляем тень для эффекта "подъёма" */
+}
+
+/* Кликабельная область заголовка элемента */
+.accordion-header {
+  display: flex;                       /* Горизонтальное расположение заголовка и иконки */
+  justify-content: space-between;      /* Заголовок слева, иконка справа */
+  align-items: center;                 /* Вертикальное центрирование */
+  padding: 28px 32px;                  /* Внутренние отступы */
+  cursor: pointer;                     /* Курсор "рука" — сигнал, что можно кликнуть */
+  transition: background 0.3s ease;    /* Плавное изменение фона при ховере */
+}
+
+/* Эффект наведения на весь элемент */
+.accordion-item:hover .accordion-header {
+  background: rgba(255, 255, 255, 0.05); /* Лёгкое посветление фона */
+}
+
+.accordion-item--open .accordion-header {
+  background: rgba(255, 255, 255, 0.08); /* Ещё чуть светлее при открытом состоянии */
+}
+
+.accordion-item:hover .accordion-item-title {
+  color: #f0f0f0;                      /* Текст заголовка становится чуть светлее при ховере */
+}
+
+/* Текст заголовка вопроса */
+.accordion-item-title {
+  font-family: Cruinn, sans-serif;     /* Основной шрифт Cruinn для заголовков вопросов */
+  font-size: 20px;                     /* Размер шрифта */
+  font-weight: 600;                    /* Полужирный */
+  margin: 0;                           /* Убираем внешние отступы */
+  padding-right: 40px;                 /* Отступ справа под иконку */
+  color: #fff;                         /* Белый цвет */
+  transition: color 0.3s ease;         /* Плавное изменение цвета при ховере */
+}
+
+/* Круглая иконка плюс/минус */
+.accordion-icon-plus {
+  position: relative;                  /* Для абсолютного позиционирования линий внутри */
+  width: 32px;                         /* Размер круга */
+  height: 32px;
+  border-radius: 50%;                  /* Делает круг */
+  background: #333;                    /* Тёмный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;                      /* Не сжимается */
+  transition: all 0.3s ease;           /* Плавная анимация фона и поворота */
+}
+
+/* Ховер и открытое состояние иконки */
+.accordion-header:hover .accordion-icon-plus {
+  background: #444;                    /* Чуть светлее при наведении */
+}
+
+.accordion-item--open .accordion-icon-plus {
+  background: #555;                    /* Ещё светлее при открытии */
+  transform: rotate(45deg);            /* Поворот на 45° превращает "+" в "−" */
+}
+
+/* Линии, образующие плюс */
+.accordion-icon-line {
+  position: absolute;                  /* Абсолютно внутри круга */
+  background: #fff;                    /* Белый цвет */
+  border-radius: 1px;                  /* Лёгкое скругление концов */
+  transition: all 0.3s ease;           /* Плавная анимация (хотя в данном случае не меняется) */
+}
+
+.accordion-icon-line--horizontal {
+  width: 14px;                         /* Горизонтальная линия */
+  height: 2px;
+}
+
+.accordion-icon-line--vertical {
+  width: 2px;                          /* Вертикальная линия */
+  height: 14px;
+}
+
+/* Контейнер раскрывающегося контента */
+.accordion-content {
+  overflow: hidden;                    /* Скрывает контент при закрытом состоянии */
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Плавная анимация высоты и прозрачности */
+}
+
+/* Внутренний блок с текстом ответа */
+.accordion-content-inner {
+  padding: 0 32px 28px;                /* Отступы: слева/справа 32px, снизу 28px (сверху 0, чтобы не было лишнего пространства) */
+}
+
+/* Параграф с ответом */
+.accordion-content p {
+  font-family: Cruinn, sans-serif;     /* Основной шрифт Cruinn для текста ответа */
+  font-size: 16px;                     /* Размер шрифта ответа */
+  line-height: 1.6;                    /* Межстрочный интервал для удобного чтения */
+  color: #aaa;                         /* Светло-серый цвет */
+  margin: 0;                           /* Убираем внешние отступы */
+}
+
+/* Анимация плавного появления контента при открытии */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;                        /* Начинает с полной прозрачности */
+    transform: translateY(10px);       /* И лёгким сдвигом вниз */
+  }
+  to { 
+    opacity: 1;                        /* Заканчивает полностью видимым */
+    transform: translateY(0); 
+  }
+}
+
+.accordion-item--open .accordion-content-inner {
+  animation: fadeIn 0.3s ease forwards; /* Запускает анимацию только при открытии */
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+
+/* Планшеты и средние экраны (до 1024px) */
+@media (max-width: 1024px) {
+  .accordion-title {
+    font-size: 40px;                   /* Уменьшаем заголовок секции */
+    margin-bottom: 50px;
+  }
+
+  .accordion-header { padding: 24px 28px; }       /* Меньше отступов в заголовке */
+  .accordion-item-title { font-size: 18px; }      /* Меньше шрифт вопроса */
+
+  .accordion-icon-plus { width: 28px; height: 28px; } /* Уменьшаем иконку */
+  .accordion-icon-line--horizontal { width: 12px; }
+  .accordion-icon-line--vertical { height: 12px; }
+}
+
+/* Мобильные планшеты и большие телефоны (до 768px) */
+@media (max-width: 768px) {
+  .accordion-section { padding: 80px 20px; }      /* Меньше вертикальных отступов секции */
+
+  .accordion-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  .accordion-header { padding: 20px 24px; }
+  .accordion-item-title {
+    font-size: 16px;
+    padding-right: 30px;               /* Меньше отступ под иконку */
+  }
+
+  .accordion-content-inner { padding: 0 24px 20px; } /* Меньше отступов в ответе */
+
+  .accordion-icon-plus { width: 24px; height: 24px; }
+  .accordion-icon-line--horizontal { width: 10px; }
+  .accordion-icon-line--vertical { height: 10px; }
+}
+
+/* Маленькие телефоны (до 480px) */
+@media (max-width: 480px) {
+  .accordion-title { font-size: 28px; }           /* Ещё меньше заголовок */
+
+  .accordion-header { padding: 18px 20px; }
+  .accordion-item-title { font-size: 15px; }
+
+  .accordion-icon-plus { width: 22px; height: 22px; }
+}

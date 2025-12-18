@@ -1,0 +1,229 @@
+/* Основной контейнер секции "Как мы работаем" */
+.work-process {
+  background-color: #000;        /* Чёрный фон всей секции */
+  color: #fff;                   /* Белый цвет текста по умолчанию для всей секции */
+  padding: 120px 20px;           /* Внешние отступы: сверху/снизу 120px, слева/справа 20px */
+  overflow: hidden;              /* Скрывает выходящие за границы элементы (полезно для анимаций) */
+  font-family: 'Cruinn', sans-serif; /* Основной шрифт Cruinn для всей секции */
+}
+
+/* Центральный контейнер с ограниченной шириной и двухколоночной сеткой */
+.work-process__container {
+  max-width: 1400px;             /* Максимальная ширина контента (не растягивается на сверхшироких экранах) */
+  margin: 0 auto;                /* Центрирование по горизонтали */
+  display: grid;                 /* CSS Grid для расположения левой и правой колонок */
+  grid-template-columns: 1fr 1fr; /* Две равные колонки */
+  gap: 80px;                     /* Расстояние между левой и правой колонкой */
+  align-items: start;            /* Выравнивание колонок по верхнему краю */
+}
+
+/* ==================== Левая колонка (заголовок + изображение) ==================== */
+.work-process__left {
+  display: flex;                 /* Flex для вертикального размещения элементов */
+  flex-direction: column;        
+  gap: 60px;                     /* Отступ между заголовком и изображением */
+}
+
+.work-process__title {
+  font-size: 72px;               /* Очень крупный заголовок */
+  font-weight: 800;              /* Жирное начертание */
+  line-height: 1;                /* Плотный межстрочный интервал */
+  text-transform: uppercase;     /* Все буквы заглавные */
+  letter-spacing: -1px;          /* Лёгкое сжатие букв для стильного вида */
+  margin: 0;                     /* Убираем стандартные отступы заголовка */
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn */
+}
+
+.work-process__image-wrapper {
+  border-radius: 20px;           /* Скруглённые углы у изображения */
+  overflow: hidden;              /* Обрезает выступающие части при зуме */
+  height: 500px;                 /* Фиксированная высота изображения на десктопе */
+  cursor: pointer;               /* Курсор "рука" — подсказка о hover-эффекте */
+}
+
+.work-process__image {
+  width: 100%;                   /* Изображение на всю ширину контейнера */
+  height: 100%;                  /* Изображение на всю высоту контейнера */
+  object-fit: cover;             /* Сохраняет пропорции, обрезая лишнее */
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Плавный зум при наведении */
+  will-change: transform;        /* Улучшает производительность анимации */
+}
+
+.work-process__image-wrapper:hover .work-process__image {
+  transform: scale(1.05);        /* Лёгкое увеличение изображения при наведении */
+}
+
+/* ==================== Правая колонка (подзаголовок + шаги) ==================== */
+.work-process__right {
+  display: flex;                 
+  flex-direction: column;        
+  gap: 80px;                     /* Большой отступ между подзаголовком и шагами */
+}
+
+.work-process__subtitle {
+  font-size: 24px;               /* Размер подзаголовка */
+  line-height: 1.4;              /* Комфортный межстрочный интервал */
+  font-weight: 300;              /* Лёгкое начертание */
+  margin: 0;                     
+  opacity: 0.9;                  /* Лёгкая полупрозрачность для мягкости */
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn */
+}
+
+/* ==================== Шаги процесса ==================== */
+.work-process__steps {
+  display: flex;                 
+  flex-direction: column;        
+  gap: 40px;                     /* Отступ между карточками шагов */
+}
+
+.work-process__step {
+  background: rgba(255, 255, 255, 0.05); /* Полупрозрачный тёмный фон */
+  backdrop-filter: blur(10px);   /* Эффект матового стекла */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая полупрозрачная рамка */
+  border-radius: 16px;           /* Скруглённые углы карточки */
+  padding: 24px;                 /* Внутренние отступы — карточки компактные */
+  position: relative;            /* Нужно для псевдоэлемента ::before */
+  overflow: hidden;              
+  opacity: 0;                    /* Начальное состояние для анимации появления */
+  transform: translateY(20px);   
+  animation: fadeInUp 0.8s ease forwards; /* Анимация появления снизу вверх */
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease; /* Плавные hover-эффекты */
+  will-change: transform;        
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn внутри карточек */
+}
+
+.work-process__step:hover {
+  background: rgba(255, 255, 255, 0.1); /* Более светлый фон при наведении */
+  border-color: rgba(255, 255, 255, 0.2); /* Более заметная рамка */
+  transform: translateY(-4px);   /* Лёгкий "подъём" карточки */
+}
+
+/* Зигзаг-эффект: чередование отступов влево/вправо */
+.work-process__step:nth-child(even) {
+  margin-left: 60px;             /* Чётные шаги сдвинуты вправо */
+}
+
+.work-process__step:nth-child(odd) {
+  margin-right: 60px;            /* Нечётные шаги сдвинуты влево */
+}
+
+/* Горизонтальное расположение внутри карточки: номер слева, текст справа */
+.work-process__step-inner {
+  display: flex;                 
+  align-items: flex-start;       /* Выравнивание по верхнему краю */
+  gap: 40px;                     /* Расстояние между номером и текстом */
+}
+
+.work-process__step-number {
+  font-size: 56px;               /* Крупный номер шага */
+  font-weight: 700;              
+  color: rgba(255, 255, 255, 0.2); /* Бледный цвет для акцента */
+  line-height: 1;                
+  min-width: 80px;               /* Фиксированная ширина — номера выровнены ровно */
+  text-align: right;             /* Номер прижат к правому краю своей зоны */
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn */
+}
+
+.work-process__step-content {
+  flex: 1;                       /* Текст занимает всё оставшееся место */
+  display: flex;                 
+  flex-direction: column;        
+  justify-content: center;       /* Вертикальное центрирование текста относительно номера */
+}
+
+.work-process__step-title {
+  font-size: 26px;               /* Заголовок шага */
+  font-weight: 600;              
+  margin: 0 0 8px 0;             
+  color: #fff;                   
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn */
+}
+
+.work-process__step-description {
+  font-size: 17px;               /* Описание шага — чуть крупнее для читаемости */
+  line-height: 1.6;              
+  margin: 0;                     
+  color: rgba(255, 255, 255, 0.7); 
+  font-family: 'Cruinn', sans-serif; /* Шрифт Cruinn */
+}
+
+/* Декоративная тонкая линия сверху каждой карточки */
+.work-process__step::before {
+  content: '';                   
+  position: absolute;            
+  top: 0;                        
+  left: 0;                       
+  right: 0;                      
+  height: 1px;                   
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); /* Градиентная линия */
+}
+
+/* Анимация плавного появления шагов */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;                  
+    transform: translateY(0);    
+  }
+}
+
+/* ==================== Адаптивность ==================== */
+@media (max-width: 1024px) {
+  .work-process__container {
+    grid-template-columns: 1fr;  /* Одна колонка на планшетах */
+    gap: 60px;                   
+  }
+
+  .work-process__title {
+    font-size: 56px;             
+  }
+
+  .work-process__subtitle {
+    font-size: 20px;             
+  }
+
+  /* Отключаем зигзаг на узких экранах */
+  .work-process__step:nth-child(even),
+  .work-process__step:nth-child(odd) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .work-process__image-wrapper {
+    height: 400px;               
+  }
+}
+
+@media (max-width: 768px) {
+  .work-process {
+    padding: 80px 20px;          
+  }
+
+  .work-process__title {
+    font-size: 42px;             
+  }
+
+  .work-process__subtitle {
+    font-size: 18px;             
+  }
+
+  .work-process__step {
+    padding: 20px;               
+  }
+
+  .work-process__step-number {
+    font-size: 44px;             
+  }
+
+  .work-process__step-title {
+    font-size: 22px;             
+  }
+
+  /* Уменьшаем расстояние между номером и текстом на мобильных */
+  .work-process__step-inner {
+    gap: 24px;
+  }
+
+  .work-process__image-wrapper {
+    height: 300px;               
+  }
+}

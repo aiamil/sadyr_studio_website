@@ -70,7 +70,7 @@
   left: 0;                     /* Прижато к левому краю */
   right: 0;                    /* Прижато к правому краю */
   bottom: 0;                   /* Прижато к низу */
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)); /* Градиентный overlay */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.99), rgba(0, 0, 0, 0.98)); /* Градиентный overlay */
   color: white;                /* Белый цвет текста */
   display: flex;               /* Flexbox для центрирования содержимого */
   flex-direction: column;      /* Вертикальное расположение элементов */
