@@ -81,9 +81,11 @@ http://localhost:5173/
 ## Примеры работы приложения
 ### Главная страница 
 #### Баннер
+
 ![1](<photoREADME/Home/Home-banner.png>) 
 #### переход на другие страницы (проекты)
 ![2](<photoREADME/Home/Home1.png>)
+
 #### Остальное для основной страницы 
 ![3](<photoREADME/Home/Home2.png>) 
 ![4](<photoREADME/Home/Home3.png>)
@@ -94,7 +96,8 @@ http://localhost:5173/
 
 ### Страница - Услуги
 ![8](<photoREADME/Service/SP1.png>) 
-![9](<photoREADME/Service/P2.png>) 
+![9](<photoREADME/Service/P2.png>)
+
 #### Футтер
 ![10](<photoREADME/Service/P3.png>) 
 
@@ -133,7 +136,6 @@ http://localhost:5173/
 ![4](<photoREADME/Case4/Case44.png>) 
 ![3](<photoREADME/Case4/Case45.png>) 
 ![4](<photoREADME/Case4/Case46.png>) 
-
 
 ## Тестирование
 cd ui-library  -  npm run test
