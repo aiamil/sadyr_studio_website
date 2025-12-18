@@ -96,11 +96,10 @@ function Services() {
     }
   ]
 
-  const navigate = useNavigate() // Хук для навигации
+  const navigate = useNavigate() 
 
-  // Простая функция для перехода на главную
   const handleGoHome = () => {
-    navigate('/') // Переход на главную
+    navigate('/') 
   }
 
   return (

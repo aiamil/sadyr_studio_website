@@ -79,7 +79,7 @@ export function Case_4() {
         <div className="banner-wrapper">
           <Banner
             bottomTexts={bottomTexts}
-            backgroundImage={getImagePath('ads.jpg')} // Фон для ADS_KZN
+            backgroundImage={getImagePath('ads.jpg')} 
           />
         </div>
 
@@ -190,7 +190,7 @@ export function Case_4() {
                 <div className="image-item">
                   <div className="image-wrapper">
                     <img 
-                      src={getImagePath('ads1.png')} // Мобильное приложение
+                      src={getImagePath('ads1.png')} 
                       alt="Мобильное приложение ADS_KZN" 
                       className="project-image"
                     />
@@ -217,7 +217,7 @@ export function Case_4() {
               <div className="large-image-container">
                 <div className="large-image-wrapper">
                   <img 
-                    src={getImagePath('ads3.png')} // Офлайн-онлайн интеграция
+                    src={getImagePath('ads3.png')}
                     alt="Интеграция каналов" 
                     className="large-project-image"
                   />
@@ -258,7 +258,7 @@ export function Case_4() {
                 <div className="project-card">
                   <div className="project-image-container">
                     <img 
-                      src={getImagePath('sostr.jpg')} // Используем существующее изображение
+                      src={getImagePath('sostr.jpg')}
                       alt="Танцевальная студия" 
                       className="project-thumbnail"
                     />
@@ -278,7 +278,7 @@ export function Case_4() {
                 <div className="project-card">
                   <div className="project-image-container">
                     <img 
-                      src={getImagePath('matur2.jpg')} // Используем существующее изображение
+                      src={getImagePath('matur2.jpg')} 
                       alt="Цветочный магазин" 
                       className="project-thumbnail"
                     />

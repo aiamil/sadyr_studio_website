@@ -57,12 +57,8 @@ export function Case_3() {
   const handleViewProject1 = () => {
     console.log('DEBUG Case_3: Нажата кнопка 1 (IST)')
     console.log('DEBUG: Пытаемся перейти по пути:', '/case/ist')
-    
-    // Вариант 1: используем navigate
     navigate('/case/ist')
-    
-    // Или вариант 2: используем window.location как запасной вариант
-    // window.location.href = '/case/ist'
+  
   }
 
   const handleViewProject2 = () => {
@@ -199,7 +195,7 @@ export function Case_3() {
                 <div className="image-item">
                   <div className="image-wrapper">
                     <img 
-                      src={getImagePath('matur1.png')} // Ребрендинг Матур
+                      src={getImagePath('matur1.png')} 
                       alt="Ребрендинг Матур" 
                       className="project-image"
                     />
@@ -211,7 +207,7 @@ export function Case_3() {
                 <div className="image-item">
                   <div className="image-wrapper">
                     <img 
-                      src={getImagePath('Matur.jpg')} // Контент-стратегия
+                      src={getImagePath('Matur.jpg')}
                       alt="Образовательный контент" 
                       className="project-image"
                     />
@@ -226,7 +222,7 @@ export function Case_3() {
               <div className="large-image-container">
                 <div className="large-image-wrapper">
                   <img 
-                    src={getImagePath('matur3.png')} // Праздничная кампания
+                    src={getImagePath('matur3.png')} 
                     alt="Праздничная кампания" 
                     className="large-project-image"
                   />
@@ -267,7 +263,7 @@ export function Case_3() {
                 <div className="project-card">
                   <div className="project-image-container">
                     <img 
-                      src={getImagePath('sostr.jpg')} // Используем существующее изображение
+                      src={getImagePath('sostr.jpg')}
                       alt="Танцевальная студия" 
                       className="project-thumbnail"
                     />
@@ -287,7 +283,7 @@ export function Case_3() {
                 <div className="project-card">
                   <div className="project-image-container">
                     <img 
-                      src={getImagePath('ads-kzn.png')} // Используем существующее изображение
+                      src={getImagePath('ads-kzn.png')} 
                       alt="Мобильное приложение" 
                       className="project-thumbnail"
                     />
