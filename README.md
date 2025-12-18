@@ -139,4 +139,5 @@ http://localhost:5173/
 
 ## Тестирование
 cd ui-library  -  npm run test
+
 cd ../frontend   -   npm run test
