@@ -58,7 +58,6 @@ export function Case_3() {
     console.log('DEBUG Case_3: Нажата кнопка 1 (IST)')
     console.log('DEBUG: Пытаемся перейти по пути:', '/case/ist')
     navigate('/case/ist')
-  
   }
 
   const handleViewProject2 = () => {
