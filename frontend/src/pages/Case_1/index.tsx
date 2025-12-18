@@ -217,6 +217,7 @@ export function Case_1() {
                   </div>
                 </div>
                 
+                
                 {/* Проект 2 - Матур */}
                 <div className="project-card">
                   <div className="project-image-container">
