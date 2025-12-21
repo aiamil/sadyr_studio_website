@@ -47,7 +47,23 @@ function App() {
               </div>
 
               <div className="header-right">
-                <button className="glass-oval-btn">
+                <button
+                  className="glass-oval-btn"
+                  onClick={() => {
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('discuss-project')
+                      
+                      if (element) {
+                        element.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start'
+                        })
+                      }
+                    } else {
+                      window.location.href = '/#discuss-project'
+                    }
+                  }}
+                >
                   обсудить проект
                 </button>
               </div>
@@ -60,15 +76,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Service />} />
-
-          {/* Маршруты для кейсов */}
           <Route path="/case/ist" element={<Case_1 />} />
           <Route path="/case/sostrip" element={<Case_2 />} />
           <Route path="/case/matur" element={<Case_3 />} />
           <Route path="/case/ads-kzn" element={<Case_4 />} />
-
           <Route path="/contacts" element={<Contacts />} />
-
           <Route path="*" element={
             <div className="page-placeholder">
               <h1>404</h1>

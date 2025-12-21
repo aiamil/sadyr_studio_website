@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
-import { Banner } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, ProjectsGallery, type CaseProjectItem, type Project } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
+
 import "../../styles/Case_1.css"
 
 export function Case_2() {
   const navigate = useNavigate()
   const [isExpanded, setIsExpanded] = useState(false)
-
-  console.log('Case_2 загружен, navigate доступен:', !!navigate)
 
   const bottomTexts = [
     { 
@@ -48,28 +47,72 @@ export function Case_2() {
 
 Мы начали с глубокого анализа целевой аудитории: молодёжь 16-25 лет, интересующаяся современными танцевальными направлениями (хип-хоп, контемпорари, дэнсхолл). На основе этого создали контент-стратегию, где 70% контента — образовательно-развлекательный...`
 
-  // Обработчики для перехода на другие проекты - С ОТЛАДКОЙ
-  const handleViewProject1 = () => {
-    console.log('DEBUG: Нажата кнопка 1 (IST)')
-    console.log('DEBUG: Текущий navigate:', navigate)
-    console.log('DEBUG: Пытаемся перейти по пути:', '/case/ist')
+  const projectPhotos: Project[] = [
+    {
+      id: 1,
+      title: 'Мастер-классы',
+      description: 'Вирусные танцевальные челленджи в Reels и TikTok',
+      image: 'https://i.pinimg.com/736x/aa/34/83/aa3483d4b9d459bb6244c5941a3bfe37.jpg',
+      size: 'small' as const,
+      projectUrl: ''
+    },
+    {
+      id: 2,
+      title: 'SMM - (ПРО)ДВИЖЕНИЕ',
+      description: 'Образовательный контент: уроки и мастер-классы',
+      image: 'https://i.pinimg.com/736x/7f/04/0f/7f040f701ba926871a6760318e6f5850.jpg',
+      size: 'large' as const,
+      projectUrl: ''
+    },
+    {
+      id: 3,
+      title: 'мастер классы',
+      description: 'Организация и продвижение финального танцевального шоу',
+      image: 'https://i.pinimg.com/736x/06/80/48/0680483e31b457ba4215de279d1d25fb.jpg',
+      size: 'small' as const,
+      projectUrl: ''
+    }
+  ]
 
-    navigate('/case/ist')
+  const caseProjects: CaseProjectItem[] = [
+    {
+      id: 1,
+      title: 'Продвижение IST на Московском рынке',
+      description: 'Стратегия масштабирования бизнеса в столице',
+      image: '/ist.png',
+      projectUrl: '/case/ist'
+    },
+    {
+      id: 2,
+      title: 'Digital-трансформация цветочного магазина «Матур»',
+      description: 'SMM-стратегия для цветочного бизнеса',
+      image: '/matur2.jpg',
+      projectUrl: '/case/matur'
+    },
+    {
+      id: 3,
+      title: 'Digital-экосистема для магазина техники ADS_KZN',
+      description: 'Продвижение мобильного приложения',
+      image: '/ads.jpg',
+      projectUrl: '/case/ads-kzn'
+    }
+  ]
+
+  const handleProjectPhotoClick = (project: Project) => {
+    console.log('Просмотр фотографии:', project.title)
   }
 
-  const handleViewProject2 = () => {
-    console.log('DEBUG: Нажата кнопка 2 (Матур)')
-    console.log('DEBUG: Пытаемся перейти по пути:', '/case/matur')
-    navigate('/case/matur')
+  const handleCaseProjectClick = (project: CaseProjectItem) => {
+    console.log('Выбран проект:', project.title)
+    console.log('Переход по пути:', project.projectUrl)
+    
+    if (navigate) {
+      navigate(project.projectUrl)
+    } else {
+      window.location.href = project.projectUrl
+    }
   }
 
-  const handleViewProject3 = () => {
-    console.log('DEBUG: Нажата кнопка 3 (ADS_KZN)')
-    console.log('DEBUG: Пытаемся перейти по пути:', '/case/ads-kzn')
-    navigate('/case/ads-kzn')
-  }
-
-  // Получение изображений из папок
   const getImagePath = (imageName: string) => {
     return `/${imageName}`
   }
@@ -107,10 +150,8 @@ export function Case_2() {
               </div>
             </div>
 
-            {/* БЛОК МЕТРИК ПРОЕКТА */}
             <div className="project-metrics-section">
               <div className="metrics-container">
-                {/* Левая колонка с метриками */}
                 <div className="metrics-left">
                   <div className="metric-group">
                     <div className="metric-tag">(охват в месяц)</div>
@@ -128,7 +169,6 @@ export function Case_2() {
                   </div>
                 </div>
                 
-                {/* Центральная колонка с описанием и аккордеоном */}
                 <div className="metrics-center">
                   <div className={`text-container ${isExpanded ? 'expanded' : ''}`}>
                     <div className="project-description">
@@ -176,7 +216,6 @@ export function Case_2() {
               </div>
             </div>
 
-            {/* НОВАЯ СЕКЦИЯ: Другие проекты */}
             <div className="other-projects-section">
               <div className="philosophy-text">
                 <p className="philosophy-quote">
@@ -185,114 +224,22 @@ export function Case_2() {
                 </p>
               </div>
 
-              {/* Две фотографии в ряд */}
-              <div className="two-images-grid">
-                <div className="image-item">
-                  <div className="image-wrapper">
-                    <img 
-                      src={getImagePath('dance1.png')} 
-                      alt="Танцевальный челлендж" 
-                      className="project-image"
-                    />
-                    <div className="image-overlay">
-                      <span className="image-text">Вирусные танцевальные челленджи в Reels</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="image-item">
-                  <div className="image-wrapper">
-                    <img 
-                      src={getImagePath('dance2.png')} 
-                      alt="Контент-стратегия" 
-                      className="project-image"
-                    />
-                    <div className="image-overlay">
-                      <span className="image-text">Образовательный контент: уроки и мастер-классы</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="project-photos-section">
+                <ProjectsGallery 
+                  projects={projectPhotos}
+                  onProjectClick={handleProjectPhotoClick}
+                />
               </div>
 
-              {/* Одна большая фотография */}
-              <div className="large-image-container">
-                <div className="large-image-wrapper">
-                  <img 
-                    src={getImagePath('dance3.png')} 
-                    alt="Финальное шоу" 
-                    className="large-project-image"
-                  />
-                  <div className="large-image-overlay">
-                    <span className="large-image-text">Организация и продвижение финального танцевального шоу</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Слоган */}
               <div className="projects-slogan">
                 <h2 className="slogan-text">ПОСМОТРИТЕ ДРУГИЕ НАШИ ПРОЕКТЫ</h2>
               </div>
 
-              {/* Три проекта в ряд */}
-              <div className="projects-grid">
-                {/* Проект 1 - IST (переход на Case_1) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('ist.png')} 
-                      alt="IST" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Продвижение IST на Московском рынке</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject1}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Проект 2 - Матур (переход на Case_3) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('matur2.jpg')} // Используем существующее изображение
-                      alt="Цветочный магазин" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Digital-трансформация цветочного магазина «Матур»</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject2}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Проект 3 - ADS_KZN (переход на Case_4) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('ads-kzn.png')} // Используем существующее изображение
-                      alt="Мобильное приложение" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Digital-экосистема для магазина техники ADS_KZN</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject3}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
+              <div className="case-projects-wrapper">
+                <CaseProjectsGallery 
+                  projects={caseProjects}
+                  onProjectClick={handleCaseProjectClick}
+                />
               </div>
             </div>
           </div>

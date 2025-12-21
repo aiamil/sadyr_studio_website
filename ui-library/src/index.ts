@@ -27,3 +27,10 @@ export type { AccordionProps, AccordionItem } from './Accordion/Accordion'
 // Компонент BenefitsGrid
 export { BenefitsGrid } from './BenefitsGrid/BenefitsGrid'
 export type { BenefitsGridProps, BenefitItem } from './BenefitsGrid/BenefitsGrid'
+
+// компонент для других примеров 
+export { CaseProjectsGallery } from './CaseProjectsGallery/CaseProjectsGallery'
+export type { 
+  CaseProjectsGalleryProps, 
+  ProjectItem as CaseProjectItem 
+} from './CaseProjectsGallery/CaseProjectsGallery'

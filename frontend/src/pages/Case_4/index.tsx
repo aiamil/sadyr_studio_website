@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Banner } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, ProjectsGallery,type CaseProjectItem, type Project } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
 import "../../styles/Case_1.css"
 
@@ -52,23 +52,76 @@ export function Case_4() {
 
 Мы разработали комплексную стратегию digital-трансформации, включая мобильное приложение с AI-рекомендациями, gamification-механики и интеграцию офлайн-онлайн каналов...`
 
-  // Обработчики для перехода на другие проекты - ИСПРАВЛЕНО
-  const handleViewProject1 = () => {
-    // Переход на Case_1 (IST)
-    navigate('/case/ist')
+  // Фотографии проекта для ProjectsGallery
+  const projectPhotos: Project[] = [
+    {
+      id: 1,
+      title: 'Мобильное приложение',
+      description: 'Прилоение для заказа товаров',
+      image: 'https://i.pinimg.com/736x/c6/03/98/c60398da139eea68e92aff93bd3d788a.jpg',
+      size: 'small' as const,
+      projectUrl: ''
+    },
+    {
+      id: 2,
+      title: 'Запрещенная соц сеть',
+      description: 'красивое оформление соц сетей',
+      image: 'https://i.pinimg.com/736x/a9/94/97/a9949780f5e0b632a7a489927e69e2fb.jpg',
+      size: 'large' as const,
+      projectUrl: ''
+    },
+    {
+      id: 3,
+      title: 'Reels для охвата ',
+      description: 'привлечение новых покупателей ',
+      image: 'https://khafizovstudio.ru/wp-content/uploads/2025/07/img_7098-scaled.jpg',
+      size: 'small' as const,
+      projectUrl: ''
+    }
+  ]
+
+  // Проекты для галереи других проектов
+  const caseProjects: CaseProjectItem[] = [
+    {
+      id: 1,
+      title: 'Продвижение IST на Московском рынке',
+      description: 'Стратегия масштабирования бизнеса в столице',
+      image: '/ist.png',
+      projectUrl: '/case/ist'
+    },
+    {
+      id: 2,
+      title: 'SMM-продвижение танцевальной студии',
+      description: 'Digital-трансформация танцевального бренда',
+      image: '/sostr.jpg',
+      projectUrl: '/case/sostrip'
+    },
+    {
+      id: 3,
+      title: 'Digital-трансформация цветочного магазина «Матур»',
+      description: 'Комплексное продвижение локального бизнеса',
+      image: '/matur2.jpg',
+      projectUrl: '/case/matur'
+    }
+  ]
+
+  const handleCaseProjectClick = (project: CaseProjectItem) => {
+    console.log('Выбран проект:', project.title)
+    console.log('Переход по пути:', project.projectUrl)
+    
+    if (navigate) {
+      navigate(project.projectUrl)
+    } else {
+      window.location.href = project.projectUrl
+    }
   }
 
-  const handleViewProject2 = () => {
-    // Переход на Case_2 (SoStrip)
-    navigate('/case/sostrip')
+  // Обработчик для фотографий проекта (не кликабельные)
+  const handleProjectPhotoClick = (project: Project) => {
+    // Ничего не делаем - фотографии не кликабельные
+    console.log('Просмотр фотографии:', project.title)
   }
 
-  const handleViewProject3 = () => {
-    // Переход на Case_3 (Матур)
-    navigate('/case/matur')
-  }
-
-  // Получение изображений из папок
   const getImagePath = (imageName: string) => {
     return `/${imageName}`
   }
@@ -79,7 +132,7 @@ export function Case_4() {
         <div className="banner-wrapper">
           <Banner
             bottomTexts={bottomTexts}
-            backgroundImage={getImagePath('ads.jpg')} 
+            backgroundImage={getImagePath('ads.jpg')}
           />
         </div>
 
@@ -175,7 +228,7 @@ export function Case_4() {
               </div>
             </div>
 
-            {/* НОВАЯ СЕКЦИЯ: Другие проекты */}
+            {/* СЕКЦИЯ: Другие проекты */}
             <div className="other-projects-section">
               <div className="philosophy-text">
                 <p className="philosophy-quote">
@@ -185,114 +238,24 @@ export function Case_4() {
                 </p>
               </div>
 
-              {/* Две фотографии в ряд */}
-              <div className="two-images-grid">
-                <div className="image-item">
-                  <div className="image-wrapper">
-                    <img 
-                      src={getImagePath('ads1.png')} 
-                      alt="Мобильное приложение ADS_KZN" 
-                      className="project-image"
-                    />
-                    <div className="image-overlay">
-                      <span className="image-text">Мобильное приложение с AI-рекомендациями</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="image-item">
-                  <div className="image-wrapper">
-                    <img 
-                      src={getImagePath('ads2.png')} 
-                      alt="Gamification система" 
-                      className="project-image"
-                    />
-                    <div className="image-overlay">
-                      <span className="image-text">Gamification-механики и система лояльности</span>
-                    </div>
-                  </div>
-                </div>
+              {/* Фотографии проекта с использованием ProjectsGallery */}
+              <div className="project-photos-section">
+                <ProjectsGallery 
+                  projects={projectPhotos}
+                  onProjectClick={handleProjectPhotoClick}
+                />
               </div>
 
-              {/* Одна большая фотография */}
-              <div className="large-image-container">
-                <div className="large-image-wrapper">
-                  <img 
-                    src={getImagePath('ads3.png')}
-                    alt="Интеграция каналов" 
-                    className="large-project-image"
-                  />
-                  <div className="large-image-overlay">
-                    <span className="large-image-text">Беспрерывный customer journey: от онлайн-выбора до офлайн-получения</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Слоган */}
               <div className="projects-slogan">
                 <h2 className="slogan-text">ПОСМОТРИТЕ ДРУГИЕ НАШИ ПРОЕКТЫ</h2>
               </div>
 
-              {/* Три проекта в ряд */}
-              <div className="projects-grid">
-                {/* Проект 1 - IST (переход на Case_1) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('ist.png')} 
-                      alt="IST" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Продвижение IST на Московском рынке</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject1}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Проект 2 - SoStrip (переход на Case_2) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('sostr.jpg')}
-                      alt="Танцевальная студия" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">SMM-продвижение танцевальной студии</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject2}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Проект 3 - Матур (переход на Case_3) */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('matur2.jpg')} 
-                      alt="Цветочный магазин" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Digital-трансформация цветочного магазина «Матур»</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject3}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
+              {/* Используем CaseProjectsGallery для других проектов */}
+              <div className="case-projects-wrapper">
+                <CaseProjectsGallery 
+                  projects={caseProjects}
+                  onProjectClick={handleCaseProjectClick}
+                />
               </div>
             </div>
           </div>

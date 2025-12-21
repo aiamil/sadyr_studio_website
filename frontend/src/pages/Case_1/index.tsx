@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { Banner } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, type CaseProjectItem } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
+
 import "../../styles/Case_1.css"
 
 export function Case_1() {
@@ -36,43 +37,42 @@ export function Case_1() {
     window.location.href = 'mailto:contact@sadyr.studio?subject=Обсудить проект IST'
   }
 
-  const fullText = `Нашей главной задачей было сделать продвижение IST современным и эффективным...`
+  const fullText = `Нашей главной задачей было сделать продвижение IST современным и эффективным... Полный текст о проекте, включая детали стратегии, реализованные мероприятия и достигнутые результаты.`
 
   const truncatedText = `Нашей главной задачей было сделать продвижение IST современным и эффективным...`
 
-  // Обработчики для перехода на другие проекты
-  const handleViewProject1 = () => {
-    console.log('Нажата кнопка "Студия танцев «SoStrip»"')
-    console.log('Переход по пути:', '/case/sostrip')
-    
-    // Проверяем доступность navigate
-    if (navigate) {
-      navigate('/case/sostrip')
-    } else {
-      console.error('navigate не доступен! Используем window.location')
-      window.location.href = '/case/sostrip'
+  const caseProjects: CaseProjectItem[] = [
+    {
+      id: 1,
+      title: 'Студия танцев «SoStrip»',
+      description: 'Продвижение танцевальной студии в Москве',
+      image: '/sostr.jpg',
+      projectUrl: '/case/sostrip'
+    },
+    {
+      id: 2,
+      title: 'Цветочный магазин «Матур»',
+      description: 'SMM-стратегия для цветочного бизнеса',
+      image: '/matur2.jpg',
+      projectUrl: '/case/matur'
+    },
+    {
+      id: 3,
+      title: 'Магазин ADS_KZN',
+      description: 'Продвижение мобильного приложения',
+      image: '/ads.jpg',
+      projectUrl: '/case/ads-kzn'
     }
-  }
+  ]
 
-  const handleViewProject2 = () => {
-    console.log('Нажата кнопка "SMM-стратегия для цветочного магазина «Матур»"')
-    console.log('Переход по пути:', '/case/matur')
+  const handleCaseProjectClick = (project: CaseProjectItem) => {
+    console.log('Выбран проект:', project.title)
+    console.log('Переход по пути:', project.projectUrl)
     
     if (navigate) {
-      navigate('/case/matur')
+      navigate(project.projectUrl)
     } else {
-      window.location.href = '/case/matur'
-    }
-  }
-
-  const handleViewProject3 = () => {
-    console.log('Нажата кнопка "Продвижение мобильного приложения Магазина ADS_KZN"')
-    console.log('Переход по пути:', '/case/ads-kzn')
-    
-    if (navigate) {
-      navigate('/case/ads-kzn')
-    } else {
-      window.location.href = '/case/ads-kzn'
+      window.location.href = project.projectUrl
     }
   }
 
@@ -113,10 +113,8 @@ export function Case_1() {
               </div>
             </div>
 
-            {/* БЛОК МЕТРИК ПРОЕКТА */}
             <div className="project-metrics-section">
               <div className="metrics-container">
-                {/* Левая колонка с метриками */}
                 <div className="metrics-left">
                   <div className="metric-group">
                     <div className="metric-tag">(площадь охвата)</div>
@@ -134,7 +132,6 @@ export function Case_1() {
                   </div>
                 </div>
                 
-                {/* Центральная колонка с описанием и аккордеоном */}
                 <div className="metrics-center">
                   <div className={`text-container ${isExpanded ? 'expanded' : ''}`}>
                     <div className="project-description">
@@ -182,7 +179,6 @@ export function Case_1() {
               </div>
             </div>
 
-            {/* НОВАЯ СЕКЦИЯ: Другие проекты */}
             <div className="other-projects-section">
               <div className="philosophy-text">
                 <p className="philosophy-quote">
@@ -195,67 +191,11 @@ export function Case_1() {
                 <h2 className="slogan-text">ПОСМОТРИТЕ ДРУГИЕ НАШИ ПРОЕКТЫ</h2>
               </div>
 
-              {/* Три проекта в ряд */}
-              <div className="projects-grid">
-                {/* Проект 1 - SoStrip */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('p4.png')}
-                      alt="Проект A" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Студия танцев «SoStrip»</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject1}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-
-                {/* Проект 2 - Матур */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('p5.png')}
-                      alt="Проект B" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">SMM-стратегия для цветочного магазина «Матур»</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject2}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Проект 3 - ADS_KZN */}
-                <div className="project-card">
-                  <div className="project-image-container">
-                    <img 
-                      src={getImagePath('p6.png')}
-                      alt="Проект C" 
-                      className="project-thumbnail"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <div className="project-name">Продвижение мобильного приложения Магазина ADS_KZN</div>
-                    <button 
-                      className="view-project-btn"
-                      onClick={handleViewProject3}
-                    >
-                      посмотреть проект
-                    </button>
-                  </div>
-                </div>
+              <div className="case-projects-wrapper">
+                <CaseProjectsGallery 
+                  projects={caseProjects}
+                  onProjectClick={handleCaseProjectClick}
+                />
               </div>
             </div>
           </div>

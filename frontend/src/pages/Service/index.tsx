@@ -113,7 +113,7 @@ function Services() {
         <div className="header-buttons">
           <Button
             size="large"
-            onClick={() => console.log('Обсудить проект')}
+            onClick={() => window.location.href = '/#discuss-project'}
           >
             обсудить проект
           </Button>
