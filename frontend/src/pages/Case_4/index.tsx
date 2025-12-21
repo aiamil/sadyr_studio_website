@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Banner, CaseProjectsGallery, ProjectsGallery,type CaseProjectItem, type Project } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, type CaseProjectItem } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
 import "../../styles/Case_1.css"
 
@@ -52,31 +52,22 @@ export function Case_4() {
 
 Мы разработали комплексную стратегию digital-трансформации, включая мобильное приложение с AI-рекомендациями, gamification-механики и интеграцию офлайн-онлайн каналов...`
 
-  // Фотографии проекта для ProjectsGallery
-  const projectPhotos: Project[] = [
+  // Данные для кастомной галереи (используем внешние ссылки напрямую)
+  const projectPhotos = [
     {
-      id: 1,
-      title: 'Мобильное приложение',
-      description: 'Прилоение для заказа товаров',
       image: 'https://i.pinimg.com/736x/c6/03/98/c60398da139eea68e92aff93bd3d788a.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Мобильное приложение',
+      description: 'Приложение для заказа товаров с AI-рекомендациями'
     },
     {
-      id: 2,
-      title: 'Запрещенная соц сеть',
-      description: 'красивое оформление соц сетей',
       image: 'https://i.pinimg.com/736x/a9/94/97/a9949780f5e0b632a7a489927e69e2fb.jpg',
-      size: 'large' as const,
-      projectUrl: ''
+      alt: 'Оформление соцсетей',
+      description: 'Красивое оформление запрещённой соцсети'
     },
     {
-      id: 3,
-      title: 'Reels для охвата ',
-      description: 'привлечение новых покупателей ',
       image: 'https://khafizovstudio.ru/wp-content/uploads/2025/07/img_7098-scaled.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Reels для охвата',
+      description: 'Привлечение новых покупателей через динамичный контент'
     }
   ]
 
@@ -106,20 +97,11 @@ export function Case_4() {
   ]
 
   const handleCaseProjectClick = (project: CaseProjectItem) => {
-    console.log('Выбран проект:', project.title)
-    console.log('Переход по пути:', project.projectUrl)
-    
     if (navigate) {
       navigate(project.projectUrl)
     } else {
       window.location.href = project.projectUrl
     }
-  }
-
-  // Обработчик для фотографий проекта (не кликабельные)
-  const handleProjectPhotoClick = (project: Project) => {
-    // Ничего не делаем - фотографии не кликабельные
-    console.log('Просмотр фотографии:', project.title)
   }
 
   const getImagePath = (imageName: string) => {
@@ -162,7 +144,6 @@ export function Case_4() {
             {/* БЛОК МЕТРИК ПРОЕКТА */}
             <div className="project-metrics-section">
               <div className="metrics-container">
-                {/* Левая колонка с метриками */}
                 <div className="metrics-left">
                   <div className="metric-group">
                     <div className="metric-tag">(установки приложения)</div>
@@ -180,7 +161,6 @@ export function Case_4() {
                   </div>
                 </div>
                 
-                {/* Центральная колонка с описанием и аккордеоном */}
                 <div className="metrics-center">
                   <div className={`text-container ${isExpanded ? 'expanded' : ''}`}>
                     <div className="project-description">
@@ -238,19 +218,56 @@ export function Case_4() {
                 </p>
               </div>
 
-              {/* Фотографии проекта с использованием ProjectsGallery */}
+              {/* КАСТОМНАЯ ГАЛЕРЕЯ ФОТОГРАФИЙ ПРОЕКТА */}
               <div className="project-photos-section">
-                <ProjectsGallery 
-                  projects={projectPhotos}
-                  onProjectClick={handleProjectPhotoClick}
-                />
+                {/* Две фотографии в ряд */}
+                <div className="two-images-grid">
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[0].image}
+                        alt={projectPhotos[0].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[0].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[1].image}
+                        alt={projectPhotos[1].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[1].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Одна большая фотография снизу */}
+                <div className="large-image-container">
+                  <div className="large-image-wrapper">
+                    <img
+                      src={projectPhotos[2].image}
+                      alt={projectPhotos[2].alt}
+                      className="large-project-image"
+                    />
+                    <div className="large-image-overlay">
+                      <span className="large-image-text">{projectPhotos[2].description}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="projects-slogan">
                 <h2 className="slogan-text">ПОСМОТРИТЕ ДРУГИЕ НАШИ ПРОЕКТЫ</h2>
               </div>
 
-              {/* Используем CaseProjectsGallery для других проектов */}
+              {/* Галерея других кейсов */}
               <div className="case-projects-wrapper">
                 <CaseProjectsGallery 
                   projects={caseProjects}

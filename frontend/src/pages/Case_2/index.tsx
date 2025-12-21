@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { Banner, CaseProjectsGallery, ProjectsGallery, type CaseProjectItem, type Project } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, type CaseProjectItem } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
-
 import "../../styles/Case_1.css"
 
 export function Case_2() {
@@ -47,30 +46,22 @@ export function Case_2() {
 
 Мы начали с глубокого анализа целевой аудитории: молодёжь 16-25 лет, интересующаяся современными танцевальными направлениями (хип-хоп, контемпорари, дэнсхолл). На основе этого создали контент-стратегию, где 70% контента — образовательно-развлекательный...`
 
-  const projectPhotos: Project[] = [
+  // Новый порядок: образовательный контент — большая фотография снизу
+  const projectPhotos = [
     {
-      id: 1,
-      title: 'Мастер-классы',
-      description: 'Вирусные танцевальные челленджи в Reels и TikTok',
       image: 'https://i.pinimg.com/736x/aa/34/83/aa3483d4b9d459bb6244c5941a3bfe37.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Вирусные челленджи',
+      description: 'Вирусные танцевальные челленджи в Reels и TikTok'
     },
     {
-      id: 2,
-      title: 'SMM - (ПРО)ДВИЖЕНИЕ',
-      description: 'Образовательный контент: уроки и мастер-классы',
-      image: 'https://i.pinimg.com/736x/7f/04/0f/7f040f701ba926871a6760318e6f5850.jpg',
-      size: 'large' as const,
-      projectUrl: ''
-    },
-    {
-      id: 3,
-      title: 'мастер классы',
-      description: 'Организация и продвижение финального танцевального шоу',
       image: 'https://i.pinimg.com/736x/06/80/48/0680483e31b457ba4215de279d1d25fb.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Финальное шоу',
+      description: 'Организация и продвижение финального танцевального шоу'
+    },
+    {
+      image: 'https://i.pinimg.com/736x/7f/04/0f/7f040f701ba926871a6760318e6f5850.jpg',
+      alt: 'Образовательный контент',
+      description: 'Образовательный контент: уроки и мастер-классы'
     }
   ]
 
@@ -98,14 +89,7 @@ export function Case_2() {
     }
   ]
 
-  const handleProjectPhotoClick = (project: Project) => {
-    console.log('Просмотр фотографии:', project.title)
-  }
-
   const handleCaseProjectClick = (project: CaseProjectItem) => {
-    console.log('Выбран проект:', project.title)
-    console.log('Переход по пути:', project.projectUrl)
-    
     if (navigate) {
       navigate(project.projectUrl)
     } else {
@@ -224,11 +208,49 @@ export function Case_2() {
                 </p>
               </div>
 
+              {/* КАСТОМНАЯ ГАЛЕРЕЯ ФОТОГРАФИЙ ПРОЕКТА */}
               <div className="project-photos-section">
-                <ProjectsGallery 
-                  projects={projectPhotos}
-                  onProjectClick={handleProjectPhotoClick}
-                />
+                {/* Две фотографии в ряд */}
+                <div className="two-images-grid">
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[0].image}
+                        alt={projectPhotos[0].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[0].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[1].image}
+                        alt={projectPhotos[1].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[1].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Большая фотография снизу — теперь образовательный контент */}
+                <div className="large-image-container">
+                  <div className="large-image-wrapper">
+                    <img
+                      src={projectPhotos[2].image}
+                      alt={projectPhotos[2].alt}
+                      className="large-project-image"
+                    />
+                    <div className="large-image-overlay">
+                      <span className="large-image-text">{projectPhotos[2].description}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="projects-slogan">

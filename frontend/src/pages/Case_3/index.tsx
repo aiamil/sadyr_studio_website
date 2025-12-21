@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Banner, CaseProjectsGallery, ProjectsGallery, type CaseProjectItem, type Project } from '@my-app/ui-library'
+import { Banner, CaseProjectsGallery, type CaseProjectItem } from '@my-app/ui-library'
 import { useNavigate } from 'react-router-dom'
 import "../../styles/Case_1.css"
 
@@ -51,31 +51,22 @@ export function Case_3() {
 
 Мы разработали комплексную стратегию, которая включала полный ребрендинг с сохранением культурного кода, контент-стратегию с акцентом на образовательный контент и внедрение CRM-системы для персонализированных предложений...`
 
-  // Фотографии проекта для ProjectsGallery
-  const projectPhotos: Project[] = [
+  // Данные фотографий (оставил массив для удобства, если потом захочешь добавить ещё)
+  const projectPhotos = [
     {
-      id: 1,
-      title: 'Ребрендинг Матур',
-      description: 'Полный ребрендинг с сохранением культурного кода',
       image: 'https://i.pinimg.com/736x/2d/cf/6f/2dcf6f827ae02e787a2892f1742f9926.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Ребрендинг Матур',
+      description: 'Полный ребрендинг с сохранением культурного кода'
     },
     {
-      id: 2,
-      title: 'Образовательный контент',
-      description: 'Язык цветов и мастер-классы',
       image: 'https://i.pinimg.com/736x/f5/c0/b3/f5c0b3798c6d59b5f5cc52506f2ab08a.jpg',
-      size: 'large' as const,
-      projectUrl: ''
+      alt: 'Образовательный контент',
+      description: 'Образовательный контент: язык цветов и мастер-классы'
     },
     {
-      id: 3,
-      title: 'Праздничная кампания',
-      description: 'Сезонная праздничная кампания с персонализированными предложениями',
       image: 'https://i.pinimg.com/736x/47/ba/28/47ba281f6de8e3e0874e0e68f44c7355.jpg',
-      size: 'small' as const,
-      projectUrl: ''
+      alt: 'Праздничная кампания',
+      description: 'Сезонная праздничная кампания с персонализированными предложениями'
     }
   ]
 
@@ -105,20 +96,11 @@ export function Case_3() {
   ]
 
   const handleCaseProjectClick = (project: CaseProjectItem) => {
-    console.log('Выбран проект:', project.title)
-    console.log('Переход по пути:', project.projectUrl)
-    
     if (navigate) {
       navigate(project.projectUrl)
     } else {
       window.location.href = project.projectUrl
     }
-  }
-
-  // Обработчик для фотографий проекта (не кликабельные)
-  const handleProjectPhotoClick = (project: Project) => {
-    // Ничего не делаем - фотографии не кликабельные
-    console.log('Просмотр фотографии:', project.title)
   }
 
   const getImagePath = (imageName: string) => {
@@ -161,7 +143,6 @@ export function Case_3() {
             {/* БЛОК МЕТРИК ПРОЕКТА */}
             <div className="project-metrics-section">
               <div className="metrics-container">
-                {/* Левая колонка с метриками */}
                 <div className="metrics-left">
                   <div className="metric-group">
                     <div className="metric-tag">(рост подписчиков)</div>
@@ -179,7 +160,6 @@ export function Case_3() {
                   </div>
                 </div>
                 
-                {/* Центральная колонка с описанием и аккордеоном */}
                 <div className="metrics-center">
                   <div className={`text-container ${isExpanded ? 'expanded' : ''}`}>
                     <div className="project-description">
@@ -237,19 +217,56 @@ export function Case_3() {
                 </p>
               </div>
 
-              {/* Фотографии проекта с использованием ProjectsGallery */}
+              {/* КАСТОМНАЯ ГАЛЕРЕЯ ФОТОГРАФИЙ ПРОЕКТА */}
               <div className="project-photos-section">
-                <ProjectsGallery 
-                  projects={projectPhotos}
-                  onProjectClick={handleProjectPhotoClick}
-                />
+                {/* Две фотографии в ряд */}
+                <div className="two-images-grid">
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[0].image}
+                        alt={projectPhotos[0].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[0].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="image-item">
+                    <div className="image-wrapper">
+                      <img
+                        src={projectPhotos[1].image}
+                        alt={projectPhotos[1].alt}
+                        className="project-image"
+                      />
+                      <div className="image-overlay">
+                        <span className="image-text">{projectPhotos[1].description}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Одна большая фотография */}
+                <div className="large-image-container">
+                  <div className="large-image-wrapper">
+                    <img
+                      src={projectPhotos[2].image}
+                      alt={projectPhotos[2].alt}
+                      className="large-project-image"
+                    />
+                    <div className="large-image-overlay">
+                      <span className="large-image-text">{projectPhotos[2].description}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="projects-slogan">
                 <h2 className="slogan-text">ПОСМОТРИТЕ ДРУГИЕ НАШИ ПРОЕКТЫ</h2>
               </div>
 
-              {/* Используем CaseProjectsGallery для других проектов */}
+              {/* Галерея других кейсов остаётся прежней */}
               <div className="case-projects-wrapper">
                 <CaseProjectsGallery 
                   projects={caseProjects}
