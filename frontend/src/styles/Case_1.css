@@ -1,0 +1,481 @@
+/* Case_1.css - Полная версия с ОЧЕНЬ большой нижней фотографией */
+
+.case-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.case-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Баннер */
+.banner-wrapper {
+  margin-bottom: 60px;
+}
+
+/* Заголовок кейса */
+.case-main-title {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 50px 0;
+  color: #222;
+  line-height: 1.2;
+}
+
+/* Сетка информации о кейсе */
+.case-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.case-info-item h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 8px 0;
+}
+
+.case-info-item p {
+  font-size: 18px;
+  color: #222;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Секция метрик проекта */
+.project-metrics-section {
+  margin-bottom: 80px;
+}
+
+.metrics-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Левая колонка метрик */
+.metrics-left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.metric-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-tag {
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+}
+
+.metric-value-large {
+  font-size: 48px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1;
+}
+
+.metric-value-accent {
+  font-size: 56px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+}
+
+/* Центральная колонка с текстом */
+.metrics-center {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.text-container {
+  line-height: 1.6;
+}
+
+.description-paragraph {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.description-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Управление текстом */
+.text-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Кнопки */
+.expand-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  color: #000000;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.expand-btn:hover {
+  color: #0056b3;
+}
+
+.expand-text {
+  font-weight: 500;
+}
+
+.expand-arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.expand-btn.expanded .expand-arrow {
+  transform: rotate(180deg);
+}
+
+.discuss-btn {
+  padding: 12px 30px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: lowercase;
+  transition: background 0.3s ease;
+}
+
+.discuss-btn:hover {
+  background: #444;
+}
+
+/* Секция других проектов */
+.other-projects-section {
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.philosophy-text {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.philosophy-quote {
+  font-size: 22px;
+  line-height: 1.6;
+  color: #333;
+  font-style: italic;
+  margin: 0;
+}
+
+/* КАСТОМНАЯ ГАЛЕРЕЯ ФОТОГРАФИЙ ПРОЕКТА */
+.project-photos-section {
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Две картинки в ряд — одинакового размера */
+.two-images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* Общий контейнер для карточек */
+.image-item,
+.large-image-wrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  height: 480px; /* Верхние — фиксированная высота */
+}
+
+.image-item:hover,
+.large-image-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.image-wrapper,
+.large-image-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Изображения */
+.project-image,
+.large-project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Оверлей с текстом */
+.image-overlay,
+.large-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  color: white;
+  padding: 40px 30px 30px;
+  transition: background 0.4s ease;
+  pointer-events: none;
+}
+
+.image-item:hover .image-overlay,
+.large-image-wrapper:hover .large-image-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.2) 100%);
+}
+
+.image-text,
+.large-image-text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+/* Большая нижняя картинка — теперь ОЧЕНЬ высокая */
+.large-image-container {
+  width: 100%;
+}
+
+.large-image-wrapper {
+  height: 820px; /* Ещё больше! Было 720px → теперь 820px */
+}
+
+/* Слоган и галерея других проектов */
+.projects-slogan {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.slogan-text {
+  font-size: 36px;
+  font-weight: 700;
+  color: #222 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.case-projects-wrapper {
+  margin-top: 40px;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .metrics-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .metrics-left {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .metric-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .case-main-title {
+    font-size: 40px;
+  }
+
+  /* Галерея */
+  .image-item {
+    height: 420px;
+  }
+  .large-image-wrapper {
+    height: 700px; /* Увеличено */
+  }
+  .image-text,
+  .large-image-text {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 868px) {
+  .two-images-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-main-title {
+    font-size: 32px;
+  }
+  
+  .metric-value-large {
+    font-size: 40px;
+  }
+  
+  .metric-value-accent {
+    font-size: 48px;
+  }
+  
+  .description-paragraph {
+    font-size: 16px;
+  }
+  
+  .philosophy-quote {
+    font-size: 20px;
+  }
+  
+  .slogan-text {
+    font-size: 28px;
+  }
+  
+  .case-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .text-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  /* Галерея */
+  .image-item {
+    height: 380px;
+  }
+  .large-image-wrapper {
+    height: 620px; /* Увеличено */
+  }
+  .image-overlay,
+  .large-image-overlay {
+    padding: 30px 20px 25px;
+  }
+  .image-text,
+  .large-image-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-container {
+    padding: 0 15px;
+  }
+  
+  .case-main-title {
+    font-size: 28px;
+  }
+  
+  .metric-value-large {
+    font-size: 36px;
+  }
+  
+  .metric-value-accent {
+    font-size: 40px;
+  }
+  
+  .philosophy-quote {
+    font-size: 18px;
+  }
+  
+  .slogan-text {
+    font-size: 24px;
+  }
+  
+  .other-projects-section {
+    margin-top: 60px;
+    padding-top: 40px;
+  }
+  
+  .metrics-left {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Галерея */
+  .two-images-grid {
+    gap: 20px;
+  }
+  .image-item {
+    height: 340px;
+  }
+  .large-image-wrapper {
+    height: 560px; /* Всё равно значительно выше верхних */
+  }
+  .image-text,
+  .large-image-text {
+    font-size: 15px;
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.case-content {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Только для чтения текста */
+.text-container.expanded {
+  max-height: none;
+}
+
+.text-container:not(.expanded) {
+  max-height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.text-container:not(.expanded)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, white);
+  pointer-events: none;
+}

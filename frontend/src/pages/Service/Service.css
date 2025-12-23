@@ -1,0 +1,178 @@
+/* Reset и базовые стили */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили для главного контейнера страницы услуг */
+.services-page {
+  min-height: 100vh;
+  background: #000000;
+  font-family: 'Cruinn', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Шапка страницы услуг  */
+.services-header {
+  background: rgb(0, 0, 0);
+  padding: 2rem;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between; /* заголовок слева, кнопки справа */
+  align-items: flex-start; /* выравнивание по верху */
+}
+
+/* Заголовок слева */
+.header-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* выравнивание по левому краю */
+  margin-top: 0; /* убираем отступ сверху */
+}
+
+/* Стили для заголовка h1 в шапке  */
+.services-header h1 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem; /* небольшой отступ снизу */
+  background: #ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  text-align: left; /* выравнивание по левому краю */
+}
+
+.services-header h3 {
+  color: #aaa;
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-top: 0;
+  text-align: left; /* выравнивание по левому краю */
+}
+
+/* Стили для контейнера кнопок в шапке */
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start; /* кнопки вверху */
+}
+
+/* Стили для основной части контента */
+.services-main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+}
+
+/* Стили для секций контента */
+.section {
+  margin-bottom: 3rem;
+}
+
+/* Стили для заголовков h2 внутри секций */
+.section h2 {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* СЕТКА ДЛЯ 9 ФОТОГРАФИЙ */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Стили для подвала (футера) страницы услуг */
+.services-footer {
+  text-align: center;
+  width: 100%;
+  margin: 2rem auto 0;
+  padding: 0 1rem 2rem;
+}
+
+/* Контейнер содержимого футера */
+.footer-content {
+  text-align: center;
+  color: #6c6c6c;
+}
+
+/* Параграфы внутри элементов услуг */
+.service-item p {
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* Параграфы внутри футера */
+.footer-content p {
+  margin: 0.25rem 0;
+  text-align: center;
+}
+
+/* Стили для планшетов (экраны до 768px) */
+@media (max-width: 768px) {
+  .services-header { 
+    padding: 1.5rem 1rem;
+    flex-direction: column; /* на мобильных - вертикальное расположение */
+    align-items: center; /* центрируем все */
+    gap: 1rem;
+  }
+  
+  .header-title {
+    align-items: center; /* центрируем заголовок на мобильных */
+    text-align: center;
+  }
+  
+  .services-header h1, 
+  .services-header h3 { 
+    font-size: 2rem;
+    text-align: center; /* центрируем текст на мобильных */
+  }
+  
+  .services-main { 
+    padding: 0 0.5rem 1rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .header-buttons {
+    flex-direction: row; /* кнопки в ряд на планшетах */
+    width: auto;
+  }
+}
+
+/* Стили для мобильных телефонов (экраны до 480px) */
+@media (max-width: 480px) {
+  .services-header h1, 
+  .services-header h3 { 
+    font-size: 1.75rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .header-buttons {
+    flex-direction: column; /* кнопки в столбик на мобильных */
+    width: 100%;
+  }
+  
+  .header-buttons button {
+    width: 100%;
+  }
+}

@@ -1,151 +1,451 @@
-/* Reset и базовые стили */
-* {
-  box-sizing: border-box;      /* Учет границ и отступов в общей ширине элемента */
-  margin: 0;                   /* Убирает внешние отступы у всех элементов */
-  padding: 0;                  /* Убирает внутренние отступы у всех элементов */
+/* ===== СБРОС И ОСНОВНЫЕ СТИЛИ ===== */
+* {                                 /* Универсальный селектор — применяется ко всем элементам страницы */
+  margin: 0;                        /* Убирает внешние отступы по умолчанию у всех элементов */
+  padding: 0;                       /* Убирает внутренние отступы по умолчанию у всех элементов */
+  box-sizing: border-box;           /* Меняет модель расчёта размеров: padding и border входят в ширину/высоту элемента */
 }
 
-/* Стили для главного контейнера приложения */
-.app {
-  min-height: 100vh;           /* Минимальная высота равна высоте окна браузера */
-  background: #000000;         /* Черный фон всего приложения */
-  font-family: 'Cruinn', Arial, sans-serif; /* Основной шрифт с фолбэками */
-  line-height: 1.6;            /* Межстрочный интервал для лучшей читаемости */
+html,
+body {                              /* Стили для <html> и <body> */
+  font-family: Cruinn;              /* Устанавливает основной шрифт сайта */
+  color: #000000;                   /* Цвет текста по умолчанию — чёрный */
+  overflow-x: hidden;               /* Скрывает горизонтальную полосу прокрутки, если контент выходит за пределы */
+  scroll-behavior: smooth;          /* Делает прокрутку по якорям плавной */
 }
 
-/* Шапка приложения */
-.app-header {
-  background: rgb(0, 0, 0);    /* Черный фон шапки */
-  padding: 2rem;               /* Внутренние отступы 2rem со всех сторон */
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Тень под шапкой для глубины */
-  margin-bottom: 2rem;         /* Отступ снизу для разделения с контентом */
-  display: flex;               /* Flexbox для горизонтального расположения */
-  justify-content: space-between; /* Распределение пространства между элементами */
-  align-items: center;         /* Вертикальное выравнивание по центру */
+/* ===== ШАПКА ===== */
+.app-header {                       /* Основной контейнер фиксированной шапки сайта */
+  position: fixed;                  /* Фиксирует шапку вверху окна браузера при прокрутке */
+  inset: 0 0 auto;                  /* Короткая запись: top:0; left:0; right:0; — растягивает шапку на всю ширину */
+  z-index: 1000;                    /* Высокий слой отображения — шапка всегда поверх остального контента */
+  background: transparent;          /* Прозрачный фон шапки в начальном состоянии */
+  padding: 20px 40px;               /* Внутренние отступы: сверху/снизу 20px, слева/справа 40px */
+  transition: padding 0.5s ease;    /* Плавное изменение padding при скролле */
 }
 
-/* Стили для контейнера кнопок в шапке */
-.header-buttons {
-  display: flex;               /* Flexbox для горизонтального расположения кнопок */
-  gap: 1rem;                   /* Расстояние между кнопками 1rem */
+.header-scrolled {                  /* Класс, добавляемый JS при прокрутке страницы вниз */
+  padding: 10px 40px;               /* Уменьшает вертикальные отступы шапки при скролле — шапка становится компактнее */
 }
 
-/* Стили для заголовка h1 в шапке */
-.app-header h1,
-.app-header h3 {
-  color: #333;                 /* Цвет текста (переопределяется градиентом) */
-  font-size: 2.5rem;           /* Крупный размер шрифта */
-  margin-bottom: 0;            /* Убирает отступ снизу */
-  margin-top: 0;               /* Убирает отступ сверху */
-  background: #ffffff;         /* Белый фон для градиента текста */
-  -webkit-background-clip: text; /* Обрезает фон по контуру текста (Webkit) */
-  -webkit-text-fill-color: transparent; /* Прозрачный цвет текста (Webkit) */
-  background-clip: text;       /* Обрезает фон по контуру текста (стандарт) */
-  line-height: 1.2;            /* Межстрочный интервал для заголовков */
+.header-content {                   /* Внутренний контейнер с логотипом, меню и кнопкой */
+  display: flex;                    /* Flex-контейнер для горизонтального расположения дочерних блоков */
+  justify-content: space-between;   /* Равномерно распределяет пространство между левым, центральным и правым блоками */
+  align-items: center;              /* Вертикально центрирует содержимое */
+  max-width: 1400px;                /* Ограничивает максимальную ширину контента */
+  margin: 0 auto;                   /* Центрирует контейнер по горизонтали */
+  min-height: 60px;                 /* Минимальная высота, чтобы шапка не схлопывалась */
+  transition: justify-content 0.5s ease; /* Плавное изменение выравнивания при скролле */
 }
 
-/* Стили для основной части контента */
-.app-main {
-  width: 100%;                 /* Ширина 100% от родительского контейнера */
-  max-width: 1200px;          /* Максимальная ширина для больших экранов */
-  margin: 0 auto;              /* Центрирование контейнера по горизонтали */
-  padding: 0 1rem 2rem;       /* Отступы: слева/справа 1rem, снизу 2rem */
+.header-scrolled .header-content {  /* При скролле меняем выравнивание контента */
+  justify-content: flex-end;        /* Всё содержимое прижимается вправо (остаётся только кнопка) */
 }
 
-/* Стили для секций контента */
-.section {
-  margin-bottom: 3rem;        /* Большой отступ снизу между секциями */
+.header-scrolled .nav-left,         /* При скролле скрываем левую навигацию и логотип */
+.header-scrolled .logo-center {     /* Два селектора через запятую — одинаковые стили */
+  opacity: 0;                       /* Делаем элементы полностью прозрачными */
+  visibility: hidden;               /* Полностью убираем их из потока доступности и рендеринга */
+  transform: translateY(-20px);      /* Сдвигаем вверх для плавного исчезновения */
+  transition: all 0.5s ease;        /* Плавная анимация всех изменений */
 }
 
-/* Стили для заголовков h2 внутри секций */
-.section h2 {
-  color: white;               /* Белый цвет текста */
-  margin-bottom: 1.5rem;      /* Отступ снизу перед контентом секции */
-  font-size: 1.8rem;          /* Размер шрифта заголовка секции */
-  text-align: center;         /* Выравнивание по центру */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Тень текста для контраста */
+/* Левая навигация */
+.nav-left {                         /* Контейнер левой части шапки (меню) */
+  flex: 1;                          /* Занимает доступное пространство (1 из 3 частей) */
+  display: flex;                    /* Flex для выравнивания ссылок */
+  justify-content: flex-start;      /* Прижимает содержимое к левому краю */
+  align-items: flex-start;          /* Выравнивает по верхнему краю */
+  margin-top: 15px;                 /* Небольшой отступ сверху для визуального баланса */
 }
 
-/* СЕТКА ДЛЯ 9 ФОТОГРАФИЙ */
-.portfolio-grid {
-  display: grid;              /* CSS Grid для создания сетки */
-  grid-template-columns: repeat(3, 1fr); /* 3 колонки равной ширины */
-  gap: 1.5rem;               /* Расстояние между элементами сетки */
-  margin: 1rem 0;           /* Вертикальные отступы сверху и снизу */
+.nav-vertical {                     /* Список ссылок в левой навигации */
+  display: flex;                    /* Flex-контейнер */
+  flex-direction: column;           /* Вертикальное расположение ссылок */
+  list-style: none;                 /* Убирает маркеры списка */
+  gap: 0.1px;                       /* Очень маленький зазор между пунктами (визуально почти без зазора) */
 }
 
-/* Стили для подвала (футера) приложения */
-.app-footer {
-  text-align: center;        /* Выравнивание содержимого по центру */
-  width: 100%;               /* Ширина 100% */
-  margin: 2rem auto 0;      /* Отступ сверху 2rem, автоматические боковые */
-  padding: 0 1rem 2rem;     /* Горизонтальные и нижние отступы */
+.nav-link {                         /* Стили отдельных ссылок в меню */
+  color: rgba(255, 255, 255, 0.8);   /* Белый цвет с прозрачностью 80% */
+  text-decoration: none;            /* Убирает подчёркивание */
+  font-size: 18px;                  /* Размер шрифта */
+  font-weight: 900;                 /* Очень жирный текст */
+  text-transform: lowercase;        /* Все буквы строчные */
+  position: relative;               /* Нужно для позиционирования псевдоэлемента ::after */
+  display: inline-block;            /* Чтобы padding работал корректно */
+  padding: 1px 0;                   /* Маленький вертикальный отступ для линии подчёркивания */
+  transition: color 0.3s ease;      /* Плавное изменение цвета при наведении */
 }
 
-/* Контейнер содержимого футера */
-.footer-content {
-  text-align: center;        /* Выравнивание текста по центру */
-  color: #6c6c6c;           /* Серый цвет текста */
+.nav-link:hover {                    /* Состояние при наведении курсора */
+  color: #ffffff;                   /* Полностью белый цвет */
 }
 
-/* Параграфы внутри элементов услуг */
-.service-item p {
-  text-align: center;        /* Выравнивание текста по центру */
-  margin: 0 auto;           /* Автоматические боковые отступы для центрирования */
-  color: white;             /* Белый цвет текста */
-  font-size: 1.2rem;        /* Размер шрифта */
-  line-height: 1.6;         /* Межстрочный интервал */
-  max-width: 500px;         /* Максимальная ширина текстового блока */
+.nav-link::after {                   /* Псевдоэлемент — линия подчёркивания */
+  content: '';                      /* Пустой контент */
+  position: absolute;               /* Абсолютное позиционирование относительно .nav-link */
+  inset: auto 0 0;                   /* bottom:0; left:0; right:0; — прижата к низу и растянута по ширине */
+  height: 1px;                      /* Толщина линии */
+  background: #ffffff;              /* Белый цвет линии */
+  width: 0;                         /* Изначально ширина 0 — линия скрыта */
+  transition: width 0.3s ease;      /* Плавное расширение линии при наведении */
 }
 
-/* Параграфы внутри футера */
-.footer-content p {
-  margin: 0.25rem 0;        /* Небольшие вертикальные отступы */
-  text-align: center;       /* Выравнивание по центру */
+.nav-link:hover::after {            /* При наведении на ссылку */
+  width: 100%;                      /* Линия растягивается на всю ширину текста */
 }
 
-/* Стили для планшетов (экраны до 768px) */
-@media (max-width: 768px) {
-  .app-header { 
-    padding: 1.5rem 1rem;   /* Уменьшенные отступы на планшетах */
-    flex-direction: column; /* Вертикальное расположение элементов */
-    gap: 1rem;              /* Расстояние между элементами */
+/* Логотип в центре */
+.logo-center {                      /* Контейнер центральной части — логотип */
+  flex: 1;                          /* Занимает среднюю треть пространства */
+  display: flex;                    /* Центрирование логотипа */
+  justify-content: center;          /* По горизонтали в центр */
+  align-items: center;              /* По вертикали в центр */
+  margin-top: -45px;                /* Поднимает логотип вверх — визуально он "выходит" за пределы шапки */
+}
+
+.logo-text {                        /* Текст логотипа */
+  font-family: Cruinn;              /* Тот же шрифт, что и у сайта */
+  color: #ffffff;                   /* Белый цвет */
+  text-decoration: none;            /* Без подчёркивания */
+  font-size: 43px;                  /* Крупный размер */
+  font-weight: 760;                 /* Жирность шрифта */
+  letter-spacing: 1.5px;              /* Небольшой межбуквенный интервал */
+  transition: opacity 0.5s ease;    /* Плавное изменение прозрачности при наведении */
+}
+
+.logo-text:hover {                   /* При наведении на логотип */
+  opacity: 0.8;                     /* Лёгкое затемнение */
+}
+
+/* Правая кнопка */
+.header-right {                     /* Контейнер правой части шапки */
+  flex: 1;                          /* Занимает правую треть */
+  display: flex;                    /* Flex для выравнивания кнопки */
+  justify-content: flex-end;        /* Прижимает кнопку к правому краю */
+  align-items: center;              /* Вертикальное центрирование */
+}
+
+.glass-oval-btn {                   /* Стеклянная овальная кнопка */
+  background: rgba(0, 0, 0, 0.3);    /* Полупрозрачный чёрный фон */
+  backdrop-filter: blur(10px);      /* Эффект размытия заднего фона (стекло) */
+  -webkit-backdrop-filter: blur(10px); /* Поддержка в Safari */
+  border: none;
+  font-family: Cruinn;                      /* Без границы */
+  border-radius: 52px;              /* Скругление до формы овала/капсулы */
+  padding: 12px 28px;               /* Внутренние отступы */
+  color: #ffffff;                   /* Белый текст */
+  font-size: 16px;                  /* Размер шрифта */
+  font-weight: 510;                 /* Полужирный текст */
+  cursor: pointer;                  /* Курсор-указатель при наведении */
+  min-width: 180px;                 /* Минимальная ширина кнопки */
+  transition: all 0.3s ease;        /* Плавная анимация всех изменений при наведении */
+}
+
+.glass-oval-btn:hover {             /* При наведении на кнопку */
+  background: rgba(0, 0, 0, 0.4);    /* Фон становится чуть темнее */
+  transform: scale(1.05);           /* Лёгкое увеличение */
+}
+
+.header-scrolled .glass-oval-btn {  /* При скролле кнопка становится крупнее */
+  font-size: 18px;                  /* Увеличиваем шрифт */
+  padding: 15px 23px;               /* Увеличиваем отступы */
+}
+
+/* ===== ФУТЕР ===== */
+.app-footer {                       /* Основной блок футера */
+  background: #fff;                 /* Белый фон */
+  color: #000;                      /* Чёрный текст */
+  padding: 80px 20px 30px;           /* Отступы: сверху много, снизу меньше, слева/справа 20px */
+  border-top: 1px solid #eee;       /* Тонкая линия-разделитель сверху */
+}
+
+.footer-container {                 /* Ограничивающий контейнер внутри футера */
+  max-width: 1400px;                /* Максимальная ширина контента */
+  margin: 0 auto;                   /* Центрирование */
+}
+
+/* Клиенты */
+.footer-clients-section {           /* Секция с логотипами клиентов */
+  margin-bottom: 60px;              /* Отступ снизу перед следующей секцией */
+}
+
+.footer-clients-title {             /* Заголовок "Наши клиенты" или подобный */
+  font-size: 36px;                  /* Крупный размер */
+  font-weight: 800;                 /* Очень жирный */
+  line-height: 1;                   /* Межстрочный интервал минимальный */
+  margin-bottom: 40px;              /* Отступ снизу */
+  text-transform: uppercase;        /* Все буквы заглавные */
+  letter-spacing: -1px;             /* Суженный межбуквенный интервал для эффекта */
+}
+
+.clients-grid {                     /* Сетка карточек клиентов */
+  display: grid;                    /* Grid-расположение */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Адаптивные колонки: минимум 180px, остальное поровну */
+  gap: 19px;                        /* Зазор между карточками */
+}
+
+.client-item {                      /* Одна карточка клиента */
+  padding: 23px 18px;               /* Внутренние отступы */
+  border: 2px solid #000;           /* Чёрная рамка */
+  border-radius: 20px;              /* Скруглённые углы */
+  text-align: center;               /* Текст по центру */
+  font-size: 20px;                  /* Размер шрифта */
+  font-weight: 600;                 /* Полужирный */
+  letter-spacing: 1px;              /* Расширенный межбуквенный интервал */
+  background: #fff;                 /* Белый фон */
+  color: #000;                      /* Чёрный текст */
+  transition: all 0.3s ease;        /* Плавная анимация при наведении */
+}
+
+.client-item:hover {                /* При наведении на карточку клиента */
+  background: #000;                 /* Фон становится чёрным */
+  color: #fff;                      /* Текст белый */
+  transform: translateY(-3px);      /* Лёгкий подъём вверх */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9); /* Тень для эффекта "парирования" */
+}
+
+.footer-divider {                   /* Горизонтальная разделительная линия */
+  height: 1px;                      /* Толщина 1px */
+  background: #e0e0e0;              /* Светло-серый цвет */
+  margin: 60px 0;                   /* Отступы сверху и снизу */
+}
+
+.footer-bottom-content {            /* Нижняя основная часть футера с тремя колонками */
+  display: grid;                    /* Grid с тремя колонками */
+  grid-template-columns: 1fr 1fr 1fr; /* Три равные колонки */
+  gap: 60px;                        /* Большой зазор между колонками */
+  margin-bottom: 60px;              /* Отступ снизу перед нижней панелью */
+}
+
+/* Логотип в футере */
+.footer-logo-section {              /* Обёртка логотипа в левой колонке */
+  display: flex;                    /* Flex для выравнивания */
+  align-items: flex-start;          /* По верхнему краю */
+}
+
+.footer-logo {                      /* Контейнер строк логотипа */
+  display: flex;                    /* Flex-контейнер */
+  flex-direction: column;           /* Вертикальное расположение строк */
+  gap: 5px;                         /* Зазор между строками */
+}
+
+.logo-line {                        /* Одна строка крупного текста логотипа */
+  font-size: 180px;                 /* Огромный размер */
+  font-weight: 800;                 /* Максимальная жирность */
+  line-height: 0.8;                 /* Сильно сжатый межстрочный интервал */
+  letter-spacing: 2px;              /* Расширенный интервал между буквами */
+}
+
+.logo-line:first-child {            /* Первая строка логотипа */
+  margin-bottom: 25px;             /* Поднимает первую строку вверх — строки перекрываются для дизайнерского эффекта */
+}
+
+
+/* Навигация в футере */
+.footer-navigation {                /* Средняя колонка с меню */
+  justify-self: center;             /* Центрирует блок по горизонтали в своей колонке */
+}
+
+.footer-section-title {             /* Маленькие заголовки секций ("Меню", "Контакты" и т.д.) */
+  font-size: 15px;                  /* Маленький размер */
+  color: #888;                      /* Серый цвет */
+  text-transform: uppercase;        /* Заглавные буквы */
+  letter-spacing: 1px;              /* Расширенный интервал */
+  margin-bottom: 20px;              /* Отступ снизу */
+  font-weight: 500;                 /* Средняя жирность */
+}
+
+
+.footer-nav-link {                  /* Отдельная ссылка в меню футера */
+  font-size: 16px;                  /* Размер шрифта */
+  color: #000;                      /* Чёрный цвет */
+  text-decoration: none;            /* Без подчёркивания */
+  padding: 8px 0;                   /* Вертикальные отступы для кликабельной зоны */
+  display: block;                   /* Блочный элемент — занимает всю ширину */
+  font-weight: 500;                 /* Средняя жирность */
+  text-transform: lowercase;        /* Строчные буквы */
+  transition: color 0.3s ease;      /* Плавное изменение цвета */
+}
+
+.footer-nav-link:hover {            /* При наведении */
+  color: #666;                      /* Темнеет до среднего серого */
+}
+
+/* Контакты */
+.footer-contacts {                  /* Правая колонка с контактами */
+  justify-self: end;                /* Прижимает блок к правому краю колонки */
+  text-align: right;                /* Текст выравнивается по правому краю */
+}
+
+.contacts-info {                    /* Контейнер списка контактов */
+  display: flex;                    /* Flex */
+  flex-direction: column;           /* Вертикально */
+  gap: 12px;                        /* Зазор между строками */
+}
+
+.contact-link,
+.contact-address {                  /* Ссылки и текст адреса — общие стили */
+  font-size: 16px;                  /* Размер */
+  color: #000;                      /* Чёрный */
+  text-decoration: none;            /* Без подчёркивания (для ссылок) */
+  font-weight: 500;                 /* Средняя жирность */
+  transition: color 0.3s ease;      /* Плавное изменение (только для ссылок) */
+}
+
+.contact-link:hover {               /* Только ссылки меняют цвет при наведении */
+  color: #666;
+}
+
+.contact-address {                  /* Адрес — не кликабельный текст */
+  opacity: 0.9;                     /* Чуть прозрачнее для визуального отличия */
+}
+
+/* Нижняя панель */
+.footer-bottom-bar {                /* Самая нижняя строка футера (копирайт, политика, соцсети) */
+  display: flex;                    /* Flex для горизонтального расположения */
+  justify-content: space-between;   /* Равномерно распределяет элементы */
+  align-items: center;              /* Вертикально по центру */
+  padding-top: 30px;                /* Отступ сверху */
+  border-top: 1px solid #e0e0e0;    /* Разделительная линия сверху */
+  font-size: 14px;                  /* Мелкий текст */
+  color: #888;                      /* Серый цвет */
+}
+
+.footer-policy {                    /* Центральная часть с политикой конфиденциальности */
+  text-align: center;               /* Текст по центру */
+}
+
+.policy-link,
+.social-link {                      /* Ссылки в нижней панели */
+  color: #888;                      /* Серый */
+  text-decoration: none;            /* Без подчёркивания */
+  font-weight: 500;                 /* Средняя жирность */
+  transition: color 0.3s ease;      /* Плавная смена цвета */
+}
+
+.policy-link:hover,
+.social-link:hover {                /* При наведении */
+  color: #000;                      /* Становятся чёрными */
+}
+
+.footer-social {                    /* Блок соцсетей справа */
+  display: flex;                    /* Flex для горизонтального расположения иконок/ссылок */
+  justify-content: flex-end;        /* Прижато вправо */
+  align-items: center;              /* По центру вертикально */
+  gap: 8px;                         /* Зазор между элементами */
+}
+
+.social-separator {                 /* Разделитель "|" между соцсетями */
+  color: #888;                      /* Серый */
+  margin: 0 4px;                    /* Отступы слева и справа */
+}
+
+/* Страницы-заглушки (404, coming soon и т.п.) */
+.page-placeholder {                 /* Контейнер страницы-заглушки */
+  max-width: 800px;                 /* Ограничение ширины */
+  margin: 150px auto 50px;          /* Большие отступы сверху, центрирование */
+  padding: 40px;                    /* Внутренние отступы */
+  text-align: center;               /* Всё по центру */
+}
+
+.page-placeholder h1 {              /* Заголовок ошибки */
+  font-size: 48px;                  /* Крупный */
+  margin-bottom: 20px;              /* Отступ снизу */
+}
+
+.page-placeholder p {               /* Пояснительный текст */
+  font-size: 18px;                  /* Размер */
+  color: #666;                      /* Серый */
+  margin-bottom: 30px;              /* Отступ снизу */
+}
+
+.back-link {                        /* Кнопка "Вернуться на главную" */
+  display: inline-block;            /* Инлайн-блок для padding */
+  padding: 12px 24px;               /* Отступы */
+  background: #000;                 /* Чёрный фон */
+  color: #fff;                      /* Белый текст */
+  text-decoration: none;            /* Без подчёркивания */
+  border-radius: 8px;               /* Скругление */
+  transition: all 0.3s ease;        /* Плавная анимация */
+}
+
+.back-link:hover {                  /* При наведении */
+  background: #333;                 /* Темнее */
+  transform: translateY(-2px);      /* Лёгкий подъём */
+}
+
+/* ===== МЕДИА-ЗАПРОСЫ ===== */
+@media (max-width: 1024px) {        /* Планшеты и небольшие ноутбуки */
+  .app-header { padding: 15px 30px; }              /* Уменьшаем отступы шапки */
+  .header-scrolled { padding: 8px 30px; }          /* Ещё меньше при скролле */
+  .nav-left { margin-top: 3px; }                   /* Меньше отступ сверху у меню */
+  .nav-vertical { gap: 4px; }                      /* Больше зазор между пунктами меню */
+  .logo-text { font-size: 24px; }                  /* Логотип меньше */
+  .glass-oval-btn { font-size: 15px; min-width: 160px; } /* Кнопка меньше */
+  .header-scrolled .glass-oval-btn { font-size: 16px; } /* При скролле чуть больше */
+  .footer-clients-title { font-size: 32px; }        /* Заголовок клиентов меньше */
+  .clients-grid { grid-template-columns: repeat(3, 1fr); } /* Фиксированные 3 колонки */
+  .footer-bottom-content { gap: 40px; }            /* Меньше зазоры в нижней части */
+  .logo-line { font-size: 140px; }                 /* Логотип в футере меньше */
+}
+
+@media (max-width: 768px) {         /* Мобильные устройства */
+  .app-header { padding: 15px 20px; }              /* Ещё меньше отступы */
+  .header-scrolled { padding: 6px 20px; }
+  
+  .header-content {                                /* В мобильной версии — вертикальное расположение */
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
   }
   
-  .app-header h1, 
-  .app-header h3 { 
-    font-size: 2rem;        /* Уменьшенный размер шрифта */
-    text-align: center;     /* Выравнивание по центру */
+  .nav-left { margin-top: 0; order: 1; justify-content: center; } /* Меню вниз, по центру */
+  .nav-vertical { flex-direction: row; justify-content: center; gap: 15px; flex-wrap: wrap; } /* Меню горизонтально с переносом */
+  .logo-center { margin-top: 0; order: 0; }        /* Логотип сверху */
+  .header-right { order: 2; justify-content: center; } /* Кнопка снизу, по центру */
+  
+  .glass-oval-btn { font-size: 14px; padding: 10px 28px; min-width: 150px; }
+  
+  .app-footer { padding: 60px 20px 20px; }         /* Меньше отступы в футере */
+  .footer-clients-section { margin-bottom: 40px; }
+  .footer-clients-title { font-size: 28px; margin-bottom: 30px; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* 2 колонки клиентов */
+  .client-item { padding: 20px 15px; font-size: 16px; }
+  .footer-divider { margin: 40px 0; }
+  .footer-bottom-content { grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; } /* Одна колонка */
+  .footer-navigation { justify-self: start; }
+  .footer-contacts { justify-self: start; text-align: left; } /* Контакты слева и текст по левому краю */
+  
+  .footer-bottom-bar {                             /* Нижняя панель вертикально */
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding-top: 20px;
   }
   
-  .app-main { 
-    padding: 0 0.5rem 1rem; /* Уменьшенные отступы на мобильных */
-  }
+  .footer-copyright,
+  .footer-policy,
+  .footer-social { text-align: center; width: 100%; } /* Всё по центру */
   
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 колонки вместо 3 */
-    gap: 1rem;              /* Уменьшенное расстояние между элементами */
-  }
+  .footer-social { justify-content: center; }
+  .logo-line { font-size: 100px; }
 }
 
-/* Стили для мобильных телефонов (экраны до 480px) */
-@media (max-width: 480px) {
-  .app-header h1, 
-  .app-header h3 { 
-    font-size: 1.75rem;     /* Еще меньший размер шрифта на телефонах */
-  }
-  
-  .portfolio-grid {
-    grid-template-columns: 1fr; /* Одна колонка на маленьких экранах */
-    gap: 1rem;              /* Расстояние между элементами */
-  }
-  
-  .header-buttons {
-    flex-direction: column; /* Вертикальное расположение кнопок */
-    width: 100%;            /* Ширина 100% от родителя */
-  }
-  
-  .header-buttons button {
-    width: 100%;            /* Кнопки занимают всю доступную ширину */
-  }
+@media (max-width: 480px) {         /* Очень маленькие экраны */
+  .app-header { padding: 12px 15px; }
+  .header-scrolled { padding: 5px 15px; }
+  .logo-text { font-size: 25px; }
+  .nav-link { font-size: 16px; }
+  .nav-vertical { gap: 10px; }
+  .glass-oval-btn { font-size: 13px; padding: 8px 24px; min-width: 140px; }
+  .clients-grid { grid-template-columns: 1fr; }    /* Одна колонка клиентов */
+  .footer-clients-title { font-size: 24px; }
+  .client-item { padding: 18px 15px; font-size: 15px; }
+  .logo-line { font-size: 80px; }
+  .footer-nav-link,
+  .contact-link,
+  .contact-address { font-size: 15px; }            /* Всё мелкий текст в футере */
+  .page-placeholder h1 { font-size: 36px; }
+  .page-placeholder p { font-size: 16px; }
 }

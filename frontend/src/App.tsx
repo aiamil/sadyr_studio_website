@@ -1,170 +1,163 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import { Case_1 } from './pages/Case_1'
+import { Case_2 } from './pages/Case_2'
+import { Case_3 } from './pages/Case_3'
+import { Case_4 } from './pages/Case_4'
+import { Contacts } from "./pages/Contacts"
+import { Home } from './pages/Home'
+import Service from './pages/Service'
 
 import './App.css'
 import '@my-app/ui-library/style.css'
-import { Button, Photo } from '@my-app/ui-library' // Импортируем Photo из ui-library
 
 function App() {
-  const portfolioItems = [
-    {
-      id: 1,
-      image: "/image/p1.png",
-      title: "Стартовый набор",
-      description: "Сегмент: Эконом ●●○○○",
-      hoverTitle: "Стартовый пакет",
-      hoverDescription: "Уровень: Базовый | Цена: 25 000 ₽",
-      hoverText: "Аудит соцсетей конкурентов\nРазработка контент-плана на 2 недели\nНастройка таргетированной рекламы в 1 соцсети",
-      ovalText: "📍Онлайн"
-    },
-    {
-      id: 2,
-      image: "/image/p2.png",
-      title: "Базовый SMM",
-      description: "Сегмент: Стандарт ●●●○○",
-      hoverTitle: "SMM-продвижение",
-      hoverDescription: "Уровень: Стандарт | Цена: 60 000 ₽",
-      hoverText: "Ведение 3 социальных сетей\nСоздание 15 уникальных постов\nДизайн 20 сторис\n2 рекламные кампании\nЕженедельная аналитика",
-      ovalText: "📍Онлайн"
-    },
-    {
-      id: 3,
-      image: "/image/p3.png",
-      title: "Профи-реклама",
-      description: "Сегмент: Бизнес ●●●●○",
-      hoverTitle: "Контекстная реклама",
-      hoverDescription: "Уровень: Профессиональный | Цена: 45 000 ₽",
-      hoverText: "Настройка Яндекс.Директ\nНастройка Google Ads\nA/B тестирование объявлений\nСбор семантического ядра\nВедение кампаний 1 месяц",
-      ovalText: "Гибрид"
-    },
-    {
-      id: 4,
-      image: "/image/p4.png",
-      title: "Премиум брендинг",
-      description: "Сегмент: Премиум ●●●●●",
-      hoverTitle: "Брендинг",
-      hoverDescription: "Уровень: Премиум | Цена: 120 000 ₽",
-      hoverText: "Разработка логотипа\nСоздание фирменного стиля\nБрендбук\nАйдентика для соцсетей\nДизайн визиток и бланков",
-      ovalText: "📍Индивидуально"
-    },
-    {
-      id: 5,
-      image: "/image/p5.png",
-      title: "Контент-пакет",
-      description: "Сегмент: Стандарт ●●●○○",
-      hoverTitle: "Контент-продакшн",
-      hoverDescription: "Уровень: Стандарт | Цена: 80 000 ₽",
-      hoverText: "Профессиональная фотосъемка\nРетушь 15 фотографий\nМонтаж 2 рекламных роликов\nСоздание 5 анимированных сторис\nГолосовое сопровождение",
-      ovalText: "📍Онлайн"
-    },
-    {
-      id: 6,
-      image: "/image/p6.png",
-      title: "Лидогенерация PRO",
-      description: "Сегмент: Бизнес ●●●●○",
-      hoverTitle: "Копирайтинг",
-      hoverDescription: "Уровень: Базовый | Цена: 20 000 ₽",
-      hoverText: "Написание 10 SEO-статей\nТексты для посадочной страницы\n20 постов для соцсетей\nРазработка слоганов",
-      ovalText: "📍Гибрид"
-    },
-    {
-      id: 7,
-      image: "/image/p7.png",
-      title: "Соцсети под ключ",
-      description: "Сегмент: Стандарт ●●●●○",
-      hoverTitle: "Создание сайта",
-      hoverDescription: "Уровень: Профессиональный | Цена: 90 000 ₽",
-      hoverText: "Разработка дизайна сайта\nАдаптивная верстка\nБазовая SEO-оптимизация\nПодключение аналитики\nОбучение управлению контентом",
-      ovalText: "📍Онлайн"
-    },
-    {
-      id: 8,
-      image: "/image/p8.png",
-      title: "SEO-оптимизация",
-      description: "Сегмент: Бизнес ●●●●○",
-      hoverTitle: "SEO-продвижение",
-      hoverDescription: "Уровень: Профессиональный | Цена: 70 000 ₽",
-      hoverText: "Полный аудит сайта\nТехническая оптимизация\nСбор семантического ядра\nНаписание метатегов\nЗакупка ссылочной массы",
-      ovalText: "📍 Гибрид"
-    },
-    {
-      id: 9,
-      image: "/image/p9.png",
-      title: "Все включено",
-      description: "Сегмент: Премиум ●●●●●",
-      hoverTitle: "Комплексный маркетинг",
-      hoverDescription: "Уровень: Премиум | Цена: 150 000 ₽",
-      hoverText: "Персональный маркетолог на 3 месяца\nРазработка маркетинговой стратегии\nSMM-продвижение\nКонтекстная реклама\nЕжемесячная отчетность по KPI",
-      ovalText: "📍Индивидуально"
-    }
-  ]
+  const [isScrolled, setIsScrolled] = useState(false)
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <div className="app">
-      {/* Шапка с кнопками */}
-      <header className="app-header">
-        <div className="header-title">
-          <h1>УСЛУГИ</h1>
-          <h3>(Тарифы)</h3>
-        </div>
-        <div className="header-buttons">
-          <Button
-            size="large"
-            onClick={() => console.log('Обсудить проект')}
-          >
-            обсудить проект
-          </Button>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/services" element={null} />
+        <Route path="*" element={
+          <header className={`app-header ${isScrolled ? 'header-scrolled' : ''}`}>
+            <div className="header-content">
+              <nav className={`nav-left ${isScrolled ? 'hidden' : ''}`}>
+                <ul className="nav-vertical">
+                  <li><a href="/" className="nav-link">главная</a></li>
+                  <li><a href="/services" className="nav-link">услуги</a></li>
+                  <li><a href="/#recent-projects" className="nav-link">кейсы</a></li>
+                  <li><a href="/contacts" className="nav-link">контакты</a></li>
+                </ul>
+              </nav>
 
-          <Button
-            size="small"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            МЕНЮ
-          </Button>
-        </div>
-      </header>
+              <div className={`logo-center ${isScrolled ? 'hidden' : ''}`}>
+                <span className="logo-text">Sadyr Studio</span>
+              </div>
 
-      {/* Основной контент - портфолио */}
-      <main className="app-main">
-        <section className="section">
-          <h2>предоставляемые услуги</h2>
-
-          {/* Сетка с 9 фотографиями используя компонент Photo из ui-library */}
-          <div className="portfolio-grid">
-            {portfolioItems.map((item) => (
-              <Photo
-                key={item.id}
-                id={item.id}
-                image={item.image}
-                title={item.title}
-                description={item.description}
-                hoverTitle={item.hoverTitle}
-                hoverDescription={item.hoverDescription}
-                hoverText={item.hoverText}
-                ovalText={item.ovalText}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="section">
-          <h2>SADYR STUDIO</h2>
-          <div className="services-content">
-            <div className="service-item">
-              <p>Давайте создадим что-то особенное вместе. Оставьте заявку и мы обсудим ваши задачи.</p>
+              <div className="header-right">
+                <button
+                  className="glass-oval-btn"
+                  onClick={() => {
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('discuss-project')
+                      
+                      if (element) {
+                        element.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start'
+                        })
+                      }
+                    } else {
+                      window.location.href = '/#discuss-project'
+                    }
+                  }}
+                >
+                  обсудить проект
+                </button>
+              </div>
             </div>
-          </div>
-        </section>
+          </header>
+        } />
+      </Routes>
+
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Service />} />
+          <Route path="/case/ist" element={<Case_1 />} />
+          <Route path="/case/sostrip" element={<Case_2 />} />
+          <Route path="/case/matur" element={<Case_3 />} />
+          <Route path="/case/ads-kzn" element={<Case_4 />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="*" element={
+            <div className="page-placeholder">
+              <h1>404</h1>
+              <p>Страница не найдена</p>
+              <a href="/" className="back-link">← Вернуться на главную</a>
+            </div>
+          } />
+        </Routes>
       </main>
 
       <footer className="app-footer">
-        <div className="footer-content">
-          <p>© 2025 Маркетинговое Агентство. Все права защищены.</p>
-          <p>Свяжитесь с нами: SADYR@agency.com</p>
+        <div className="footer-container">
+          <div className="footer-clients-section">
+            <h2 className="footer-clients-title">НАШИ КЛИЕНТЫ</h2>
+            <div className="clients-grid">
+              <div className="client-item">SOSTRIP</div>
+              <div className="client-item">РУБИН</div>
+              <div className="client-item">MATYP</div>
+              <div className="client-item">PRIVATE WAVE</div>
+              <div className="client-item">BASE PREMIER</div>
+            </div>
+          </div>
+
+          <div className="footer-divider"></div>
+
+          <div className="footer-bottom">
+            <div className="footer-bottom-content">
+              <div className="footer-logo-section">
+                <div className="footer-logo">
+                  <span className="logo-line">Sadyr</span>
+                  <span className="logo-line">Studio</span>
+                </div>
+              </div>
+
+              <div className="footer-navigation">
+                <h3 className="footer-section-title">(навигация)</h3>
+                <ul className="footer-nav-list">
+                  <li><a href="/" className="footer-nav-link">главная</a></li>
+                  <li><a href="/services" className="footer-nav-link">услуги</a></li>
+                  <li><a href="/#recent-projects" className="footer-nav-link">кейсы</a></li>
+                  <li><a href="/contacts" className="footer-nav-link">контакты</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-contacts">
+                <h3 className="footer-section-title">(контакты)</h3>
+                <div className="contacts-info">
+                  <a href="tel:+79872692090" className="contact-link">+7 (987) 269-20-90</a>
+                  <a href="mailto:isadurtinova@bk.ru" className="contact-link">isadurtinova@bk.ru</a>
+                  <p className="contact-address">г. Казань</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="footer-bottom-bar">
+              <div className="footer-copyright">
+                © 2025 Sadyr Studio. Все права защищены.
+              </div>
+
+              <div className="footer-policy">
+                <a href="/privacy" className="policy-link">Политика конфиденциальности</a>
+              </div>
+
+              <div className="footer-social">
+                <a href="https://t.me/sadyrstudio" className="social-link" target="_blank" rel="noopener noreferrer">
+                  Telegram
+                </a>
+                <span className="social-separator">/</span>
+                <a href="https://wa.me/79872692090" className="social-link" target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
-    </div>
+    </BrowserRouter>
   )
 }
 

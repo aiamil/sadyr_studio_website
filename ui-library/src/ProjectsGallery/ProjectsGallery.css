@@ -1,0 +1,194 @@
+/* Основной контейнер галереи */
+.projects-gallery {
+  display: flex; /* Flexbox для горизонтального расположения колонок */
+  gap: 30px; /* Расстояние между левой и правой колонкой */
+  max-width: 1400px; /* Максимальная ширина всей галереи */
+  margin: 0 auto; /* Центрирование по горизонтали */
+  padding: 20px; /* Внутренние отступы вокруг галереи */
+}
+
+/* Левая колонка */
+.projects-gallery__column--left {
+  flex: 1; /* Занимает 1 долю доступного пространства */
+  display: flex; /* Flexbox для вертикального расположения проектов */
+  flex-direction: column; /* Вертикальное направление */
+  gap: 30px; /* Расстояние между элементами в колонке */
+}
+
+/* Правая колонка */
+.projects-gallery__column--right {
+  flex: 1; /* Занимает 1 долю доступного пространства */
+  display: flex; /* Flexbox для вертикального расположения проектов */
+  flex-direction: column; /* Вертикальное направление */
+  gap: 30px; /* Расстояние между элементами в колонке */
+}
+
+/* Базовые стили для карточки проекта */
+.project-item {
+  position: relative; /* Для абсолютного позиционирования дочерних элементов */
+  border-radius: 15px; /* Закругленные углы карточки */
+  overflow: hidden; /* Скрывает выходящие за границы элементы */
+  transition: transform 0.3s ease; /* Плавная анимация трансформации */
+}
+
+/* Стили для маленьких проектов - УВЕЛИЧЕНЫ В 2 РАЗА */
+.project-item--small {
+  height: 600px; /* Увеличенная высота (было ~300px) */
+  min-height: 600px; /* Минимальная высота */
+}
+
+/* Стили для средних проектов - УВЕЛИЧЕНЫ В 2 РАЗА */
+.project-item--medium {
+  height: 800px; /* Увеличенная высота (было ~400px) */
+  min-height: 800px; /* Минимальная высота */
+}
+
+/* Стили для больших проектов - УВЕЛИЧЕНЫ В 2 РАЗА */
+.project-item--large {
+  height: 1000px; /* Увеличенная высота (было ~500px) */
+  min-height: 1000px; /* Минимальная высота */
+}
+
+/* Контейнер для изображения */
+.project-image-container {
+  position: relative; /* Для позиционирования overlay */
+  width: 100%; /* Полная ширина родителя */
+  height: 100%; /* Полная высота родителя */
+  cursor: pointer; /* Курсор "рука" при наведении */
+}
+
+/* Само изображение проекта */
+.project-image {
+  width: 100%; /* Полная ширина контейнера */
+  height: 100%; /* Полная высота контейнера */
+  object-fit: cover; /* Сохраняет пропорции, обрезая лишнее */
+  transition: transform 0.5s ease; /* Плавная анимация увеличения */
+}
+
+/* Эффект при наведении на изображение */
+.project-image-container:hover .project-image {
+  transform: scale(1.05); /* Увеличение на 5% при наведении */
+}
+
+/* Наложение поверх изображения */
+.project-image-overlay {
+  position: absolute; /* Абсолютное позиционирование */
+  top: 0; /* Прикреплено к верху */
+  left: 0; /* Прикреплено к левому краю */
+  right: 0; /* Прикреплено к правому краю */
+  bottom: 0; /* Прикреплено к низу */
+  background: linear-gradient(
+    to bottom, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.1) 50%, 
+    rgba(0, 0, 0, 0.7) 100%
+  ); /* Градиент от прозрачного к темному */
+  z-index: 1; /* Поверх изображения */
+}
+
+/* Контейнер с информацией о проекте */
+.project-info {
+  position: absolute; /* Абсолютное позиционирование */
+  bottom: 0; /* Внизу карточки */
+  left: 0; /* Слева */
+  right: 0; /* Справа */
+  padding: 40px; /* Внутренние отступы (увеличены) */
+  z-index: 2; /* Поверх overlay */
+  color: white; /* Белый цвет текста */
+}
+
+/* Контейнер для текста проекта */
+.project-text {
+  margin-bottom: 30px; /* Отступ снизу перед кнопкой */
+}
+
+/* Заголовок проекта */
+.project-title {
+  font-size: 2.5rem; /* Увеличенный размер шрифта */
+  font-weight: bold; /* Жирное начертание */
+  margin-top: 10px; /* Отступ сверху от описания */
+}
+
+/* Описание проекта */
+.project-description {
+  font-size: 1.2rem; /* Увеличенный размер шрифта */
+  opacity: 0.9; /* Легкая прозрачность */
+}
+
+/* Кнопка "Посмотреть проект" */
+.project-link {
+  display: flex; /* Flexbox для иконки и текста */
+  align-items: center; /* Выравнивание по центру по вертикали */
+  gap: 15px; /* Расстояние между текстом и стрелкой */
+  background: transparent; /* Прозрачный фон */
+  border: 2px solid white; /* Белая рамка толщиной 2px */
+  color: white; /* Белый текст */
+  padding: 15px 30px; /* Внутренние отступы (увеличены) */
+  border-radius: 50px; /* Сильно закругленные углы */
+  font-size: 1.1rem; /* Увеличенный размер шрифта */
+  cursor: pointer; /* Курсор "рука" */
+  transition: all 0.3s ease; /* Плавная анимация всех свойств */
+}
+
+/* Эффект при наведении на кнопку */
+.project-link:hover {
+  background: white; /* Белый фон при наведении */
+  color: black; /* Черный текст при наведении */
+}
+
+/* Текст в кнопке */
+.project-link-text {
+  font-weight: 500; /* Средняя жирность */
+}
+
+/* Стрелка в кнопке */
+.project-arrow {
+  width: 24px; /* Ширина стрелки */
+  height: 24px; /* Высота стрелки */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'/%3E%3C/svg%3E"); /* SVG стрелка (белая) */
+  background-size: contain; /* Заполняет элемент */
+  background-repeat: no-repeat; /* Не повторяется */
+  transition: background-image 0.3s ease; /* Плавная смена цвета стрелки */
+}
+
+/* Эффект стрелки при наведении на кнопку */
+.project-link:hover .project-arrow {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'/%3E%3C/svg%3E"); /* SVG стрелка (черная) */
+}
+
+/* Адаптивность для планшетов (≤1024px) */
+@media (max-width: 1024px) {
+  .projects-gallery {
+    flex-direction: column; /* Колонки становятся вертикальными */
+  }
+  
+  .project-item--small {
+    height: 400px; /* Меньшая высота на планшетах */
+    min-height: 400px;
+  }
+  
+  .project-item--medium {
+    height: 500px; /* Меньшая высота на планшетах */
+    min-height: 500px;
+  }
+  
+  .project-item--large {
+    height: 600px; /* Меньшая высота на планшетах */
+    min-height: 600px;
+  }
+}
+
+/* Адаптивность для мобильных (≤768px) */
+@media (max-width: 768px) {
+  .project-info {
+    padding: 20px; /* Меньшие отступы на мобильных */
+  }
+  
+  .project-title {
+    font-size: 1.8rem; /* Меньший размер шрифта */
+  }
+  
+  .project-description {
+    font-size: 1rem; /* Меньший размер шрифта */
+  }
+}

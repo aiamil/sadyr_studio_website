@@ -1,0 +1,510 @@
+/* Contacts.css - Оптимизированная версия */
+
+/* Корневые переменные для цветов неонового свечения */
+:root {
+  /* Цвета для Telegram с прозрачностью для эффекта свечения */
+  --neon-telegram: rgba(81, 203, 255, 0.6);
+  --neon-telegram-hover: rgba(81, 203, 255, 1);
+  /* Цвета для WhatsApp */
+  --neon-whatsapp: rgba(104, 158, 123, 0.7);
+  --neon-whatsapp-hover: rgba(104, 158, 123, 1);
+  /* Цвета для VK */
+  --neon-vk: rgba(108, 153, 204, 0.7);
+  --neon-vk-hover: rgba(108, 153, 204, 1);
+}
+
+/* Основной контейнер страницы контактов */
+.contacts-page {
+  background: #fff; /* Белый фон всей страницы */
+  min-height: 100vh; /* Минимальная высота на весь экран */
+}
+
+/* Секция с основным контентом */
+.contacts-content {
+  padding: 30px 15px; /* Внутренние отступы: 30px сверху/снизу, 15px по бокам */
+  max-width: 1200px; /* Максимальная ширина контента */
+  margin: 0 auto; /* Центрирование блока */
+}
+
+/* Заголовок страницы */
+.contacts-title {
+  font-size: 32px; /* Размер шрифта */
+  font-weight: 800; /* Жирность шрифта */
+  margin-bottom: 30px; /* Отступ снизу */
+  color: #000; /* Черный цвет текста */
+  text-transform: uppercase; /* Все буквы заглавные */
+  text-align: center; /* Выравнивание по центру */
+}
+
+/* Сетка для разделения контактной информации и мессенджеров */
+.contacts-grid {
+  display: grid; /* Используем CSS Grid */
+  grid-template-columns: 1fr 1fr; /* Две колонки равной ширины */
+  gap: 40px; /* Расстояние между колонками */
+  margin-bottom: 60px; /* Отступ снизу */
+}
+
+/* Заголовки секций */
+.contacts-section-title {
+  font-size: 22px; /* Размер шрифта */
+  font-weight: 700; /* Жирность шрифта */
+  margin-bottom: 20px; /* Отступ снизу */
+  color: #000; /* Черный цвет */
+}
+
+/* Контейнер для контактной информации */
+.contacts-info {
+  display: flex; /* Используем Flexbox */
+  flex-direction: column; /* Элементы в колонку */
+  gap: 25px; /* Расстояние между элементами */
+}
+
+/* Метки контактных полей (ТЕЛЕФОН, EMAIL и т.д.) */
+.contact-item__label {
+  font-size: 14px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  color: #666; /* Серый цвет */
+  text-transform: uppercase; /* Заглавные буквы */
+  margin-bottom: 5px; /* Отступ снизу */
+}
+
+/* Стили для ссылок контактов (телефон, email) */
+.contact-link {
+  font-size: 20px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  color: #000; /* Черный цвет */
+  margin-bottom: 5px; /* Отступ снизу */
+  transition: color 0.3s ease; /* Плавный переход цвета */
+}
+
+/* Эффект при наведении на ссылку */
+.contact-link:hover {
+  color: #666; /* Изменение цвета на серый */
+}
+
+/* Стиль для текстовых контактов (адрес) */
+.contact-text {
+  font-size: 16px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  color: #000; /* Черный цвет */
+  margin-bottom: 5px; /* Отступ снизу */
+}
+
+/* Примечания под контактами */
+.contact-note {
+  font-size: 13px; /* Меньший размер шрифта */
+  color: #888; /* Светло-серый цвет */
+  margin-top: 3px; /* Небольшой отступ сверху */
+}
+
+/* Сетка для карточек мессенджеров */
+.messengers-grid {
+  display: grid; /* Используем CSS Grid */
+  grid-template-columns: repeat(3, 1fr); /* Три равные колонки */
+  gap: 12px; /* Расстояние между карточками */
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Базовая стилизация карточки мессенджера */
+.messenger-card {
+  position: relative; /* Для позиционирования внутренних элементов */
+  padding: 15px; /* Внутренние отступы */
+  min-height: 100px; /* Минимальная высота */
+  border-radius: 10px; /* Закругленные углы */
+  border: 1px solid transparent; /* Прозрачная граница для анимации */
+  overflow: hidden; /* Скрытие выходящего за границы контента */
+  display: flex; /* Flexbox для внутреннего выравнивания */
+  flex-direction: column; /* Элементы в колонку */
+  justify-content: space-between; /* Распределение пространства */
+  transition: transform 0.3s ease, box-shadow 0.4s ease, border 0.4s ease; /* Анимация */
+  /* Тени для эффекта свечения с использованием CSS переменных */
+  box-shadow: 0 0 15px var(--glow-color, transparent),
+              0 0 30px var(--glow-color-dim, transparent),
+              0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Эффекты при наведении на карточку */
+.messenger-card:hover {
+  transform: translateY(-4px); /* Поднятие карточки */
+  border-color: var(--glow-color-hover); /* Изменение цвета границы */
+  /* Усиление теней при наведении */
+  box-shadow: 0 0 25px var(--glow-color-hover),
+              0 0 50px var(--glow-color-hover-dim),
+              0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Заголовок карточки (иконка и стрелка) */
+.messenger-header {
+  display: flex; /* Flexbox для выравнивания */
+  justify-content: space-between; /* Иконка слева, стрелка справа */
+  align-items: flex-start; /* Выравнивание по верху */
+}
+
+/* Контейнер для иконки мессенджера */
+.messenger-icon-wrapper {
+  width: 35px; /* Фиксированная ширина */
+  height: 35px; /* Фиксированная высота */
+  border-radius: 6px; /* Закругленные углы */
+  display: flex; /* Центрирование содержимого */
+  align-items: center; /* Вертикальное центрирование */
+  justify-content: center; /* Горизонтальное центрирование */
+  font-weight: 700; /* Жирный шрифт */
+  font-size: 14px; /* Размер иконки */
+  color: white; /* Белый цвет текста */
+  background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
+}
+
+/* Стрелка в правом верхнем углу */
+.messenger-arrow {
+  font-weight: 700; /* Жирный шрифт */
+  opacity: 0.7; /* Небольшая прозрачность */
+}
+
+/* Название мессенджера */
+.messenger-name {
+  font-size: 15px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  margin-bottom: 3px; /* Небольшой отступ снизу */
+}
+
+/* Идентификатор (ник или номер) мессенджера */
+.messenger-handle {
+  font-size: 13px; /* Меньший размер шрифта */
+  opacity: 0.9; /* Легкая прозрачность */
+}
+
+/* Определение CSS переменных для карточки Telegram */
+.telegram-card {
+  --glow-color: var(--neon-telegram); /* Основной цвет свечения */
+  --glow-color-dim: rgba(81, 203, 255, 0.4); /* Более прозрачная версия для внешнего свечения */
+  --glow-color-hover: var(--neon-telegram-hover); /* Цвет при наведении */
+  --glow-color-hover-dim: rgba(81, 203, 255, 0.7); /* Прозрачный цвет при наведении */
+  background: rgba(81, 203, 255); /* Фоновый цвет */
+  color: white; /* Белый текст */
+}
+
+/* Определение CSS переменных для карточки WhatsApp */
+.whatsapp-card {
+  --glow-color: var(--neon-whatsapp);
+  --glow-color-dim: rgba(104, 158, 123, 0.5);
+  --glow-color-hover: var(--neon-whatsapp-hover);
+  --glow-color-hover-dim: rgba(104, 158, 123, 0.8);
+  background: #689e7b; /* Зеленый цвет WhatsApp */
+  color: white;
+}
+
+/* Определение CSS переменных для карточки VK */
+.vk-card {
+  --glow-color: var(--neon-vk);
+  --glow-color-dim: rgba(108, 153, 204, 0.5);
+  --glow-color-hover: var(--neon-vk-hover);
+  --glow-color-hover-dim: rgba(108, 153, 204, 0.8);
+  background: #6c99cc; /* Синий цвет VK */
+  color: white;
+}
+
+/* Блок с примечаниями под мессенджерами */
+.contacts-notes {
+  background: #f8f8f8; /* Светло-серый фон */
+  padding: 15px; /* Внутренние отступы */
+  border-radius: 10px; /* Закругленные углы */
+}
+
+/* Параграфы внутри блока примечаний */
+.contacts-notes p {
+  margin: 0 0 6px; /* Отступы: 0 сверху, 6px снизу, 0 по бокам */
+  font-size: 14px; /* Размер шрифта */
+  color: #666; /* Серый цвет */
+}
+
+/* Убираем отступ у последнего параграфа */
+.contacts-notes p:last-child {
+  margin-bottom: 0;
+}
+
+/* Выделение жирным текста в примечаниях */
+.contacts-notes strong {
+  color: #000; /* Черный цвет для жирного текста */
+}
+
+/* Секция формы обратной связи */
+.contacts-form-section {
+  margin-bottom: 60px; /* Большой отступ снизу */
+}
+
+/* Подзаголовок формы */
+.form-subtitle {
+  font-size: 16px; /* Размер шрифта */
+  color: #666; /* Серый цвет */
+  margin-bottom: 20px; /* Отступ снизу */
+  line-height: 1.4; /* Межстрочный интервал */
+  text-align: center; /* Выравнивание по центру */
+}
+
+/* Контейнер формы */
+.contacts-form {
+  background: #f8f8f8; /* Светло-серый фон */
+  padding: 25px; /* Внутренние отступы */
+  border-radius: 30px; /* Сильно закругленные углы */
+  max-width: 800px; /* Максимальная ширина формы */
+  margin: 0 auto; /* Центрирование формы */
+}
+
+/* Строка формы с двумя полями (имя и телефон) */
+.form-row {
+  display: grid; /* Используем CSS Grid */
+  grid-template-columns: 1fr 1fr; /* Две равные колонки */
+  gap: 15px; /* Расстояние между колонками */
+  margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Группа полей формы */
+.form-group {
+  margin-bottom: 15px; /* Отступ снизу между группами */
+}
+
+/* Метки полей формы */
+.form-group label {
+  display: block; /* Блочный элемент */
+  font-size: 13px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  color: #000; /* Черный цвет */
+  margin-bottom: 6px; /* Отступ снизу */
+  text-transform: uppercase; /* Заглавные буквы */
+}
+
+/* Стили для полей ввода и textarea */
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Ширина на 100% родителя */
+  padding: 10px 14px; /* Внутренние отступы */
+  font-size: 15px; /* Размер шрифта */
+  border: 1px solid #ddd; /* Серая граница */
+  border-radius: 6px; /* Закругленные углы */
+  background: #fff; /* Белый фон */
+  color: #000; /* Черный текст */
+  font-family: inherit; /* Наследование шрифта */
+}
+
+/* Стили при фокусе на поле */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none; /* Убираем стандартный outline */
+  border-color: #000; /* Черная граница при фокусе */
+}
+
+/* Футер формы (чекбокс и кнопка) */
+.form-footer {
+  display: flex; /* Flexbox для выравнивания */
+  justify-content: space-between; /* Чекбокс слева, кнопка справа */
+  align-items: center; /* Вертикальное центрирование */
+  margin-top: 25px; /* Отступ сверху */
+  padding-top: 15px; /* Отступ сверху внутри блока */
+  border-top: 1px solid #ddd; /* Разделительная линия */
+}
+
+/* Контейнер для чекбокса соглашения */
+.form-agreement {
+  display: flex; /* Flexbox для выравнивания */
+  align-items: flex-start; /* Выравнивание по верху */
+  gap: 8px; /* Расстояние между чекбоксом и текстом */
+  flex: 1; /* Занимает все доступное пространство */
+}
+
+/* Стилизация чекбокса */
+.form-agreement input[type="checkbox"] {
+  margin-top: 2px; /* Небольшой отступ сверху для выравнивания */
+}
+
+/* Текст соглашения */
+.form-agreement label {
+  font-size: 13px; /* Размер шрифта */
+  color: #666; /* Серый цвет */
+  font-weight: 400; /* Обычный шрифт (не жирный) */
+}
+
+/* Кнопка отправки формы */
+.form-submit-btn {
+  font-family: Cruinn, sans-serif; /* Специфичный шрифт */
+  background: #000; /* Черный фон */
+  color: #fff; /* Белый текст */
+  border: none; /* Без границы */
+  padding: 15px 20px; /* Внутренние отступы */
+  font-size: 15px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  border-radius: 30px; /* Сильно закругленные углы (овальная кнопка) */
+  width: 160px; /* Фиксированная ширина */
+  height: 48px; /* Фиксированная высота */
+  transition: background 0.3s ease; /* Плавный переход фона */
+  white-space: nowrap; /* Запрет переноса текста */
+}
+
+/* Эффект при наведении на кнопку */
+.form-submit-btn:hover {
+  background: #222; /* Темно-серый фон при наведении */
+}
+
+/* Контейнер для карты (заполнитель) */
+.map-container {
+  position: relative; /* Для позиционирования дочерних элементов */
+  height: 400px; /* Фиксированная высота */
+  border-radius: 12px; /* Закругленные углы */
+  overflow: hidden; /* Скрытие выходящего за границы */
+  background: #000; /* Черный фон на случай отсутствия изображения */
+}
+
+/* Фоновое изображение карты */
+.map-background {
+  position: absolute; /* Абсолютное позиционирование */
+  inset: 0; /* Заполнение всего родительского контейнера (top, right, bottom, left: 0) */
+  opacity: 0.6; /* Полупрозрачность */
+}
+
+/* Наложение поверх карты для затемнения */
+.map-overlay {
+  position: absolute; /* Абсолютное позиционирование */
+  inset: 0; /* Заполнение всего родителя */
+  background: rgba(0, 0, 0, 0.7); /* Темное полупрозрачное наложение */
+}
+
+/* Контент поверх карты */
+.map-content-overlay {
+  position: relative; /* Относительное позиционирование для z-index */
+  z-index: 2; /* Поверх других слоев */
+  height: 100%; /* Высота 100% родителя */
+  padding: 30px; /* Внутренние отступы */
+  color: white; /* Белый текст */
+  display: flex; /* Flexbox для центрирования */
+  flex-direction: column; /* Элементы в колонку */
+  justify-content: center; /* Вертикальное центрирование */
+}
+
+/* Заголовок карты */
+.map-header {
+  text-align: center; /* Выравнивание по центру */
+  margin-bottom: 30px; /* Отступ снизу */
+}
+
+/* Заголовок в карте */
+.map-title {
+  font-size: 24px; /* Размер шрифта */
+  font-weight: 700; /* Жирный шрифт */
+  margin-bottom: 8px; /* Отступ снизу */
+  letter-spacing: 1px; /* Межбуквенный интервал */
+}
+
+/* Подзаголовок карты */
+.map-subtitle {
+  font-size: 14px; /* Размер шрифта */
+  color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый */
+}
+
+/* Сетка с информационными карточками на карте */
+.map-info-grid {
+  display: grid; /* Используем CSS Grid */
+  grid-template-columns: repeat(2, 1fr); /* Две равные колонки */
+  gap: 12px; /* Расстояние между карточками */
+  margin-bottom: 25px; /* Отступ снизу */
+}
+
+/* Карточка с информацией на карте */
+.info-card {
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+  border-radius: 10px; /* Закругленные углы */
+  padding: 15px; /* Внутренние отступы */
+  display: flex; /* Flexbox для выравнивания */
+  align-items: flex-start; /* Выравнивание по верху */
+  gap: 10px; /* Расстояние между иконкой и текстом */
+}
+
+/* Иконка в карточке информации */
+.card-icon {
+  font-size: 20px; /* Размер иконки */
+  min-width: 25px; /* Минимальная ширина для выравнивания */
+}
+
+/* Контейнер для текста карточки */
+.card-content {
+  flex: 1; /* Занимает все доступное пространство */
+}
+
+/* Заголовок карточки информации */
+.card-title {
+  font-size: 13px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  margin-bottom: 5px; /* Отступ снизу */
+  color: rgba(255, 255, 255, 0.9); /* Почти белый цвет */
+  text-transform: uppercase; /* Заглавные буквы */
+}
+
+/* Основной текст карточки информации */
+.card-text {
+  font-size: 14px; /* Размер шрифта */
+  font-weight: 600; /* Полужирный шрифт */
+  margin-bottom: 3px; /* Отступ снизу */
+  color: white; /* Белый цвет */
+}
+
+/* Дополнительные детали в карточке */
+.card-details {
+  font-size: 12px; /* Маленький размер шрифта */
+  color: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый */
+}
+
+/* Футер карты */
+.map-footer {
+  text-align: center; /* Выравнивание по центру */
+  padding-top: 15px; /* Отступ сверху */
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Полупрозрачная разделительная линия */
+}
+
+/* Заключительный текст в карте */
+.map-tagline {
+  font-size: 14px; /* Размер шрифта */
+  color: rgba(255, 255, 255, 0.9); /* Почти белый цвет */
+  max-width: 500px; /* Максимальная ширина текста */
+  margin: 0 auto; /* Центрирование блока */
+  line-height: 1.4; /* Межстрочный интервал */
+}
+
+/* Медиа-запрос для планшетов и маленьких ноутбуков (до 992px) */
+@media (max-width: 992px) {
+  .contacts-grid {
+    grid-template-columns: 1fr; /* Одна колонка вместо двух */
+    gap: 30px; /* Уменьшенный gap */
+  }
+}
+
+/* Медиа-запрос для мобильных устройств (до 768px) */
+@media (max-width: 768px) {
+  .contacts-content { padding: 15px; } /* Уменьшенные отступы */
+  .contacts-title { font-size: 26px; } /* Уменьшенный размер заголовка */
+  .contacts-section-title { font-size: 20px; } /* Уменьшенный размер подзаголовков */
+  .contacts-form { padding: 20px; } /* Уменьшенные отступы формы */
+  .contact-link { font-size: 18px; } /* Уменьшенный размер ссылок */
+  .contact-text { font-size: 16px; } /* Уменьшенный размер текста */
+  .messengers-grid { grid-template-columns: 1fr; } /* Одна колонка для мессенджеров */
+  .form-row,
+  .map-info-grid { grid-template-columns: 1fr; } /* Одна колонка для строк формы и инфо-карточек */
+  .form-footer { 
+    flex-direction: column; /* Элементы в колонку */
+    gap: 15px; /* Расстояние между элементами */
+  }
+  .map-container { height: 350px; } /* Уменьшенная высота карты */
+  .map-content-overlay { padding: 20px; } /* Уменьшенные отступы */
+  .map-title { font-size: 22px; } /* Уменьшенный размер заголовка карты */
+}
+
+/* Медиа-запрос для очень маленьких экранов (до 480px) */
+@media (max-width: 480px) {
+  .contacts-title { font-size: 22px; } /* Еще меньше заголовок */
+  .messenger-card { 
+    padding: 12px; /* Уменьшенные отступы */
+    min-height: 90px; /* Уменьшенная минимальная высота */
+  }
+  .messenger-icon-wrapper { 
+    width: 30px; /* Уменьшенная ширина */
+    height: 30px; /* Уменьшенная высота */
+  }
+  .map-container { height: 300px; } /* Еще меньше высота карты */
+}
